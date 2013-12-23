@@ -1,4 +1,5 @@
 #include "lista.h"
+#include "towar.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -8,6 +9,8 @@ element * clear(element *first)
         return NULL;
     clear(first->next);
 
+    free(first->twr->nazwa);
+    free(first->twr);
     free(first);
 
     return NULL;
