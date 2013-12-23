@@ -1,5 +1,6 @@
 #include "menu.h"
 #include "lista.h"
+#include "towar.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -29,6 +30,7 @@ element * wiadomosc_powitalna(element *lista)
         {
         case '1':
             if(_DEBUG) printf("Wybrano %c\n",c);
+            lista = dodaj_towar(lista);
             break;
         case '0':
             if(_DEBUG) printf("Wybrano %c\n",c);

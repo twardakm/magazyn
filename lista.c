@@ -36,7 +36,7 @@ element * push(element *first, element *newone)
     element * temp = first;
     if(first == NULL)
     {
-        first->prev = NULL;
+        newone->prev = NULL;
         return newone;
     }
     while(temp->next != NULL)
