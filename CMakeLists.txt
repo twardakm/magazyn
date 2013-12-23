@@ -1,5 +1,9 @@
 project(magazyn)
 cmake_minimum_required(VERSION 2.8)
+set(CMAKE_C_FLAGS "-D_DEBUG=1")
+file(GLOB Demo_HEADERS RELATIVE ${CMAKE_SOURCE_DIR}/include "*.h")
+SET(magazyn_SOURCES)
+SET(magazyn_HEADERS lista.h)
 aux_source_directory(. SRC_LIST)
-add_executable(${PROJECT_NAME} ${SRC_LIST})
-
+set(CMAKE_BUILD_TYPE Debug)
+add_executable(${PROJECT_NAME} ${SRC_LIST} ${magazyn_SOURCES} ${magazyn_HEADERS})
