@@ -7,7 +7,8 @@ void tekst_powitalny(int ile)
 {
     printf("\nMAGAZYN\n--------------------------------\n");
     printf("Towarów w magazynie: %d\n", ile);
-    printf("1 - Dodaj towar\n");
+    printf("1 - Dodaj towar\n"
+           "0 - Wyjdź\n");
 }
 
 void ustaw_kodowanie()
@@ -27,8 +28,12 @@ element * wiadomosc_powitalna(element *lista)
         switch(c)
         {
         case '1':
-            if(_DEBUG) printf("Wybrano %c",c);
+            if(_DEBUG) printf("Wybrano %c\n",c);
             break;
+        case '0':
+            if(_DEBUG) printf("Wybrano %c\n",c);
+            printf("Dziękuję za skorzystanie z programu\nMarcin Twardak\n");
+            return lista;
         default:
             tekst_powitalny(size(lista));
             break;
