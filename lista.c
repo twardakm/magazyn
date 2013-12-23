@@ -9,6 +9,8 @@ element * clear(element *first)
         return NULL;
     clear(first->next);
 
+    if (_DEBUG) printf("Zwolniono pamięć %s\n", first->twr->nazwa);
+
     free(first->twr->nazwa);
     free(first->twr);
     free(first);
