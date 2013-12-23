@@ -7,7 +7,7 @@ element * clear(element *first)
     if (first == NULL)
         return NULL;
     clear(first->next);
-    zwolnij_pamiec_obraz(first->img);
+
     free(first);
 
     return NULL;
@@ -28,7 +28,6 @@ element * position(element *first, int n)
     }
     for (n; n > 0; n--) first = first->next;
 
-    if(_DEBUG) printf("Wybrano: %s\n", first->img->nazwa_pliku);
     return first;
 }
 
