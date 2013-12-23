@@ -6,6 +6,7 @@
 element *dodaj_towar(element *first)
 {
     element *temp = (element *)malloc(sizeof(element));
+    temp->next = NULL;
     temp->twr = (towar *)malloc(sizeof(towar));
     temp->twr->nazwa = (char *)malloc(sizeof(char)*MAX_TOWAR_LENGHT + 1); //+1 na znak /0
 
@@ -26,4 +27,17 @@ element *dodaj_towar(element *first)
     first = push(first, temp);
 
     return first;
+}
+
+void wyswietl_towary(element *first)
+{
+    printf("DODANE TOWARY\n-------------------------\n\n");
+    while (first != NULL)
+    {
+        printf("Nazwa towaru:\t%s\n", first->twr->nazwa);
+        printf("Ilość:\t\t%d\n",first->twr->ilosc);
+        printf("Cena:\t\t%.2f\n---\n",first->twr->cena);
+        first = first->next;
+    }
+    return;
 }

@@ -9,6 +9,7 @@ void tekst_powitalny(int ile)
     printf("\nMAGAZYN\n--------------------------------\n");
     printf("Towarów w magazynie: %d\n", ile);
     printf("1 - Dodaj towar\n"
+           "2 - Wyświetl dodane towary\n"
            "0 - Wyjdź\n");
 }
 
@@ -31,6 +32,10 @@ element * wiadomosc_powitalna(element *lista)
         case '1':
             if(_DEBUG) printf("Wybrano %c\n",c);
             lista = dodaj_towar(lista);
+            break;
+        case '2':
+            if(_DEBUG) printf("Wybrano %c\n",c);
+            wyswietl_towary(lista);
             break;
         case '0':
             if(_DEBUG) printf("Wybrano %c\n",c);

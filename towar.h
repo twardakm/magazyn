@@ -12,5 +12,6 @@ typedef struct towar
 } towar;
 
 element * dodaj_towar(element *first);
+void wyswietl_towary(element *first);
 
 #endif // TOWAR_H
