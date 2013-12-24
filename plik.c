@@ -34,10 +34,13 @@ element *odczytaj_plik(element *first, char *nazwa_pliku)
     else
         printf("OK\n");
 
+    element *temp = NULL;
+
     while ((err = sprawdz_czy_komentarz(plik)) == COMMENT_OK)
     {
         while ((c = fgetc(plik)) != '\n') {} // żeby przeskoczyć znak '{'
-        element *temp = (element *)malloc(sizeof(element));
+        temp = (element *)malloc(sizeof(element));
+        temp->next = NULL;
         temp->twr = (towar *)malloc(sizeof(towar));
         temp->twr->nazwa_pliku = nazwa_pliku;
         temp->twr->nazwa = (char *)malloc(sizeof(char) * MAX_TOWAR_LENGHT + 1);
