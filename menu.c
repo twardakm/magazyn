@@ -3,10 +3,12 @@
 #include "towar.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 void tekst_powitalny(int ile)
 {
     printf("\nMAGAZYN\n--------------------------------\n");
+    wyswietl_date();
     printf("Towarów w magazynie: %d\n", ile);
     printf("1 - Dodaj towar\n"
            "2 - Wyświetl dodane towary\n"
@@ -46,4 +48,14 @@ element * wiadomosc_powitalna(element *lista)
             break;
         }
     }
+}
+
+void wyswietl_date()
+{
+    time_t *tp = malloc(sizeof(time_t));
+    time(tp); //wygenerowanie czasu
+
+    printf("%s\n", ctime(tp));
+
+    free(tp);
 }
