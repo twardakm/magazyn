@@ -18,5 +18,18 @@ element *odczytaj_plik(element *first, char *nazwa_pliku)
     }
     if (_DEBUG) printf ("Nazwa pliku: %s\n", nazwa_pliku);
 
+    FILE *plik;
+    printf("Otwieranie pliku... %s ", nazwa_pliku);
+    //otwarcie podanego pliku w trybie do odczytu
+    if((plik = fopen(nazwa_pliku, "r")) == NULL)
+    {
+        perror("Nie udało się otworzyć podanego pliku\n");
+        printf("\nKod błędu: %d\n");
+        return first;
+    }
+    else
+        printf("OK\n");
+
+    fclose(plik);
     return first;
 }
