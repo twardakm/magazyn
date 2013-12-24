@@ -6,6 +6,7 @@
 
 typedef struct towar
 {
+    char *nazwa_pliku;
     char *nazwa;
     int ilosc;
     double cena;

@@ -9,12 +9,13 @@ element *dodaj_towar(element *first)
     temp->next = NULL;
     temp->twr = (towar *)malloc(sizeof(towar));
     temp->twr->nazwa = (char *)malloc(sizeof(char)*MAX_TOWAR_LENGHT + 1); //+1 na znak /0
+    temp->twr->nazwa_pliku = NULL;
 
     printf("Podaj nazwę towaru: (maks. dł: %d)\n", MAX_TOWAR_LENGHT);
     //konieczne żeby odczytywać całą linię
     //---------
     while(getchar() != '\n');
-    fgets(temp->twr->nazwa, MAX_TOWAR_LENGHT, stdin);
+    fgets(temp->twr->nazwa, MAX_TOWAR_LENGHT + 1, stdin);
     strtok(temp->twr->nazwa, "\n");
     //---------
 

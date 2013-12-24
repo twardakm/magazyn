@@ -1,10 +1,14 @@
 #include "plik.h"
 #include "lista.h"
+#include "errors.h"
+#include "towar.h"
 #include <stdlib.h>
 #include <stdio.h>
 
 element *odczytaj_plik(element *first, char *nazwa_pliku)
 {
+    int err;
+    char c;
     if (nazwa_pliku == NULL)
     {
         nazwa_pliku = (char *)malloc(sizeof(char) * MAX_FILE_NAME + 1);
@@ -12,7 +16,7 @@ element *odczytaj_plik(element *first, char *nazwa_pliku)
         //konieczne żeby odczytywać całą linię
         //---------
         while(getchar() != '\n');
-        fgets(nazwa_pliku, MAX_FILE_NAME, stdin);
+        fgets(nazwa_pliku, MAX_FILE_NAME + 1, stdin);
         strtok(nazwa_pliku, "\n");
         //---------
     }
@@ -30,6 +34,62 @@ element *odczytaj_plik(element *first, char *nazwa_pliku)
     else
         printf("OK\n");
 
+    while ((err = sprawdz_czy_komentarz(plik)) == COMMENT_OK)
+    {
+        while ((c = fgetc(plik)) != '\n') {} // żeby przeskoczyć znak '{'
+        element *temp = (element *)malloc(sizeof(element));
+        temp->twr = (towar *)malloc(sizeof(towar));
+        temp->twr->nazwa_pliku = nazwa_pliku;
+        temp->twr->nazwa = (char *)malloc(sizeof(char) * MAX_TOWAR_LENGHT + 1);
+        fgets(temp->twr->nazwa, MAX_TOWAR_LENGHT + 1, plik); //+1 bo /n
+        strtok(temp->twr->nazwa, "\n");
+        fscanf(plik, "%d", &temp->twr->ilosc);
+        fscanf(plik, "%lf", &temp->twr->cena);
+        while ((c = fgetc(plik)) != '}') {} // żeby przeskoczyć znak '{'
+        while ((c = fgetc(plik)) != '\n') {}
+
+        if (_DEBUG)
+            printf("Odczytano:\n"
+                   "Nazwa pliku: %s\n"
+                   "Nazwa towaru: %s\n"
+                   "Ilość: %d\n"
+                   "Cena: %.2f\n",
+                   temp->twr->nazwa_pliku,
+                   temp->twr->nazwa,
+                   temp->twr->ilosc,
+                   temp->twr->cena);
+
+        first = push(first, temp);
+    }
+
+    if (_DEBUG) printf("Kod err: %d\n", err);
+
     fclose(plik);
     return first;
+}
+
+int sprawdz_czy_komentarz(FILE *plik)
+{
+    char c = fgetc(plik);
+    while (c == '#' && c != EOF)
+    {
+        if (_DEBUG) printf("Znaleziono komentarz\n");
+        do
+        {
+            c = fgetc(plik);
+        } while (c != '\n' && c != EOF);
+        c = fgetc(plik);
+    }
+    if (c == EOF)
+        return COMMENT_EOF;
+    else if (!fseek(plik, ftell(plik) - 1, SEEK_SET))
+    {
+        //if (_DEBUG) printf("Nie znaleziono komentarza\n");
+        return COMMENT_OK;
+    }
+    else
+    {
+        printf("Błąd odczytu z pliku\n");
+        return COMMENT_ERR;
+    }
 }
