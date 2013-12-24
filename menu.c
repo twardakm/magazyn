@@ -1,6 +1,7 @@
 #include "menu.h"
 #include "lista.h"
 #include "towar.h"
+#include "plik.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -11,7 +12,8 @@ void tekst_powitalny(int ile)
     wyswietl_date();
     printf("Towarów w magazynie: %d\n", ile);
     printf("1 - Dodaj towar\n"
-           "2 - Wyświetl dodane towary\n"
+           "2 - Wczytaj plik\n"
+           "3 - Wyświetl dodane towary\n"
            "0 - Wyjdź\n");
 }
 
@@ -36,6 +38,10 @@ element * wiadomosc_powitalna(element *lista)
             lista = dodaj_towar(lista);
             break;
         case '2':
+            if(_DEBUG) printf("Wybrano %c\n",c);
+            lista = odczytaj_plik(lista, NULL);
+            break;
+        case '3':
             if(_DEBUG) printf("Wybrano %c\n",c);
             wyswietl_towary(lista);
             break;
