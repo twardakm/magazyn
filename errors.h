@@ -11,4 +11,7 @@
 #define SHOW_OK 0
 #define LS_NOT_FOUND 21
 
+#define FILENAME_OK 0
+#define FILENAME_WRONG 31
+
 #endif // ERRORS_H

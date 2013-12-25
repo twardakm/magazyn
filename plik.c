@@ -4,10 +4,11 @@
 #include "towar.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 element *odczytaj_plik(element *first, char *nazwa_pliku)
 {
-    int err;
+    int err = FILENAME_WRONG;
     int i = 0;
     char c;
 
@@ -26,12 +27,37 @@ element *odczytaj_plik(element *first, char *nazwa_pliku)
     }
     if (_DEBUG) printf ("Nazwa pliku: %s\n", nazwa_pliku);
 
+    //sprawdzanie czy jest to plik typu .mtw
+    //---------------------------------------
+
+    char *nazwa_copy = (char *)malloc(sizeof(char)*strlen(nazwa_pliku) + 1);
+    strcpy(nazwa_copy, nazwa_pliku);
+    nazwa_copy = strtok(nazwa_copy, ".");
+
+    nazwa_copy = strtok(NULL, ".");
+
+    if(strcmp("mtw", nazwa_copy) == 0 && (nazwa_copy = strtok(nazwa_copy, ".")) != NULL)
+    {
+        if (_DEBUG) printf("Plik OK!\n");
+    }
+    else
+    {
+        printf("Program obsługuje tylko pliki formatu *.mtw");
+        free(nazwa_copy);
+        free(nazwa_pliku);
+        return first;
+    }
+
+
+    //---------------------------------------
+
     FILE *plik;
     printf("Otwieranie pliku... %s ", nazwa_pliku);
     //otwarcie podanego pliku w trybie do odczytu
     if((plik = fopen(nazwa_pliku, "r")) == NULL)
     {
         perror("Nie udało się otworzyć podanego pliku\n");
+        free(nazwa_pliku);
         return first;
     }
     else
