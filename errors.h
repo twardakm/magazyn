@@ -8,4 +8,7 @@
 #define COMMENT_ERR 11
 #define COMMENT_EOF 12
 
+#define SHOW_OK 0
+#define LS_NOT_FOUND 21
+
 #endif // ERRORS_H

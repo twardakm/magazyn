@@ -8,5 +8,6 @@
 
 element * odczytaj_plik(element *first, char *nazwa_pliku);
 int sprawdcz_czy_komentarz(FILE *plik);
+int wyswietl_pliki();
 
 #endif // PLIK_H

@@ -8,7 +8,11 @@
 element *odczytaj_plik(element *first, char *nazwa_pliku)
 {
     int err;
+    int i = 0;
     char c;
+
+    wyswietl_pliki();
+
     if (nazwa_pliku == NULL)
     {
         nazwa_pliku = (char *)malloc(sizeof(char) * MAX_FILE_NAME + 1);
@@ -28,7 +32,6 @@ element *odczytaj_plik(element *first, char *nazwa_pliku)
     if((plik = fopen(nazwa_pliku, "r")) == NULL)
     {
         perror("Nie udało się otworzyć podanego pliku\n");
-        printf("\nKod błędu: %d\n");
         return first;
     }
     else
@@ -51,7 +54,7 @@ element *odczytaj_plik(element *first, char *nazwa_pliku)
         while ((c = fgetc(plik)) != '}') {} // żeby przeskoczyć znak '{'
         while ((c = fgetc(plik)) != '\n') {}
 
-        if (_DEBUG)
+        /*if (_DEBUG)
             printf("Odczytano:\n"
                    "Nazwa pliku: %s\n"
                    "Nazwa towaru: %s\n"
@@ -60,12 +63,13 @@ element *odczytaj_plik(element *first, char *nazwa_pliku)
                    temp->twr->nazwa_pliku,
                    temp->twr->nazwa,
                    temp->twr->ilosc,
-                   temp->twr->cena);
+                   temp->twr->cena);*/
 
         first = push(first, temp);
+        i++;
     }
 
-    if (_DEBUG) printf("Kod err: %d\n", err);
+    printf("Wczytano %d towarów", i);
 
     fclose(plik);
     return first;
@@ -95,4 +99,34 @@ int sprawdz_czy_komentarz(FILE *plik)
         printf("Błąd odczytu z pliku\n");
         return COMMENT_ERR;
     }
+}
+
+int wyswietl_pliki()
+{
+#ifdef WIN32
+    FILE *ls = _popen("dir /b *.mtw", "r");
+#else
+    FILE *ls = popen("ls *.mtw", "r");
+#endif
+    if (ls == NULL)
+    {
+        perror ("Nie odnaleziono polecenia ls, wpisz nazwę pliku z pamięci\n");
+        return LS_NOT_FOUND;
+    }
+    char * temp = (char *)malloc(sizeof(char) * MAX_FILE_NAME + 1);
+    temp[0] = '\0';
+    printf("Pliki mtw w tym folderze:\n------------\n");
+    do
+    {
+        printf("%s", temp);
+        fgets(temp, MAX_FILE_NAME, ls);
+    } while(!feof(ls));
+    printf("------------\n");
+    free(temp);
+#ifdef WIN32
+    _pclose(ls);
+#else
+    pclose(ls);
+#endif
+    return SHOW_OK;
 }
