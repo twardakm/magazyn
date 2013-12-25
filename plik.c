@@ -31,6 +31,7 @@ element *odczytaj_plik(element *first, char *nazwa_pliku)
     //---------------------------------------
 
     char *nazwa_copy = (char *)malloc(sizeof(char)*strlen(nazwa_pliku) + 1);
+    char *c_temp = nazwa_copy;
     strcpy(nazwa_copy, nazwa_pliku);
     nazwa_copy = strtok(nazwa_copy, ".");
 
@@ -43,7 +44,7 @@ element *odczytaj_plik(element *first, char *nazwa_pliku)
     else
     {
         printf("Program obsługuje tylko pliki formatu *.mtw");
-        free(nazwa_copy);
+        free(c_temp);
         free(nazwa_pliku);
         return first;
     }
