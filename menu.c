@@ -32,6 +32,40 @@ void menu_sortowanie(element *lista)
                 break;
             }
             break;
+        case '2':
+            if (_DEBUG) printf("Wybrano %c", c);
+            c = getchar();
+            switch(c)
+            {
+            case '1':
+                if (_DEBUG) printf("%c\n", c);
+                break;
+            case '2':
+                if (_DEBUG) printf("%c\n", c);
+                break;
+            default:
+                if (_DEBUG) printf("%c\n", c);
+                printf("Niepoprawny wybór\n");
+                break;
+            }
+            break;
+        case '3':
+            if (_DEBUG) printf("Wybrano %c", c);
+            c = getchar();
+            switch(c)
+            {
+            case '1':
+                if (_DEBUG) printf("%c\n", c);
+                break;
+            case '2':
+                if (_DEBUG) printf("%c\n", c);
+                break;
+            default:
+                if (_DEBUG) printf("%c\n", c);
+                printf("Niepoprawny wybór\n");
+                break;
+            }
+            break;
         case '0':
             return;
         default:
@@ -54,7 +88,7 @@ void tekst_powitalny(int ile)
 
 void tekst_sortowanie()
 {
-    printf("W jaki sposób posortować przy wyświetlaniu?\n"
+    printf("W jaki sposób posortować?\n"
            "11 - po nazwie\trosnąco\n"
            "12 - po nazwie\tmalejąco\n"
            "21 - po ilości\trosnąco\n"
