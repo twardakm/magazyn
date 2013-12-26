@@ -6,6 +6,41 @@
 #include <stdlib.h>
 #include <time.h>
 
+void menu_sortowanie(element *lista)
+{
+    tekst_sortowanie();
+    char c = getchar();
+
+    while(c = getchar())
+    {
+        switch(c)
+        {
+        case '1':
+            if (_DEBUG) printf("Wybrano %c", c);
+            c = getchar();
+            switch(c)
+            {
+            case '1':
+                if (_DEBUG) printf("%c\n", c);
+                break;
+            case '2':
+                if (_DEBUG) printf("%c\n", c);
+                break;
+            default:
+                if (_DEBUG) printf("%c\n", c);
+                printf("Niepoprawny wybór\n");
+                break;
+            }
+            break;
+        case '0':
+            return;
+        default:
+            tekst_sortowanie();
+            break;
+        }
+    }
+}
+
 void tekst_powitalny(int ile)
 {
     printf("\nMAGAZYN\n--------------------------------\n");
@@ -15,6 +50,18 @@ void tekst_powitalny(int ile)
            "2 - Wczytaj plik\n"
            "3 - Wyświetl dodane towary\n"
            "0 - Wyjdź\n");
+}
+
+void tekst_sortowanie()
+{
+    printf("W jaki sposób posortować przy wyświetlaniu?\n"
+           "11 - po nazwie\trosnąco\n"
+           "12 - po nazwie\tmalejąco\n"
+           "21 - po ilości\trosnąco\n"
+           "22 - po ilości\tmalejąco\n"
+           "31 - po cenie\trosnąco\n"
+           "32 - po cenie\tmalejąco\n"
+           "0 - powrót\n");
 }
 
 void ustaw_kodowanie()
@@ -43,7 +90,7 @@ element * wiadomosc_powitalna(element *lista)
             break;
         case '3':
             if(_DEBUG) printf("Wybrano %c\n",c);
-            wyswietl_towary(lista);
+            menu_sortowanie(lista);
             break;
         case '0':
             if(_DEBUG) printf("Wybrano %c\n",c);
