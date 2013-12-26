@@ -30,6 +30,26 @@ element *dodaj_towar(element *first)
     return first;
 }
 
+element * sortowanie_cena_rosnaco(element *first)
+{
+    int czy = 0; //oznaczenie czy zmieniono coś w jednym przebiegu
+    if (first == NULL)
+    {
+        printf("Nie dodano żadnych towarów\n");
+        return;
+    }
+    do
+    {
+        while (first->prev != NULL) {first = first->prev; } //powrót do początku
+        while (first->next != NULL)
+        {
+
+        }
+    } while(czy)
+
+    return first;
+}
+
 void wyswietl_towary(element *first)
 {
     printf("DODANE TOWARY\n-------------------------\n\n");

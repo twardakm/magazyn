@@ -8,6 +8,11 @@
 
 void menu_sortowanie(element *lista)
 {
+    if (lista == NULL)
+    {
+        printf("Nie dodano żadnych towarów\n");
+        return;
+    }
     tekst_sortowanie();
     char c = getchar();
 
