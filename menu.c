@@ -65,6 +65,7 @@ void menu_sortowanie(element *lista)
                 break;
             case '2':
                 if (_DEBUG) printf("%c\n", c);
+                lista = sortowanie_cena_malejaco(lista);
                 break;
             default:
                 if (_DEBUG) printf("%c\n", c);

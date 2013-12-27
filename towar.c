@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 
-element *dodaj_towar(element *first)
+element * dodaj_towar(element *first)
 {
     element *temp = (element *)malloc(sizeof(element));
     temp->next = NULL;
@@ -27,6 +27,40 @@ element *dodaj_towar(element *first)
     scanf("%lf", &temp->twr->cena);
 
     first = push(first, temp);
+
+    return first;
+}
+
+element * sortowanie_cena_malejaco(element *first)
+{
+    if (first == NULL)
+    {
+        printf("Nie dodano żadnych towarów\n");
+        return;
+    }
+    int czy = 0; //oznaczenie czy zmieniono coś w jednym przebiegu
+    towar *temp;
+    do
+    {
+        czy = 0;
+        while (first->prev != NULL) {first = first->prev; } //powrót do początku
+        while (first != NULL && first->next != NULL)
+        {
+            if (first->next->twr->cena > first->twr->cena)
+            {
+                //zamiana kolejności
+                temp = first->twr;
+                first->twr = first->next->twr;
+                first->next->twr = temp;
+                czy = 1;
+            }
+            first = first->next;
+        }
+    } while(czy);
+
+    while (first->prev != NULL) {first = first->prev; } //powrót do początku
+
+    wyswietl_towary(first);
 
     return first;
 }
