@@ -61,6 +61,7 @@ void menu_sortowanie(element *lista)
             {
             case '1':
                 if (_DEBUG) printf("%c\n", c);
+                lista = sortowanie_cena_rosnaco(lista);
                 break;
             case '2':
                 if (_DEBUG) printf("%c\n", c);
