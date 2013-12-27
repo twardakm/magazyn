@@ -13,7 +13,7 @@ typedef struct towar
 } towar;
 
 element * dodaj_towar(element *first);
-element * sortowanie_cena(element *first);
+element * sortowanie_cena_rosnaco(element *first);
 void wyswietl_towary(element *first);
 
 #endif // TOWAR_H
