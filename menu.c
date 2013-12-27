@@ -44,9 +44,11 @@ void menu_sortowanie(element *lista)
             {
             case '1':
                 if (_DEBUG) printf("%c\n", c);
+                lista = sortowanie_ilosc_rosnaco(lista);
                 break;
             case '2':
                 if (_DEBUG) printf("%c\n", c);
+                lista = sortowanie_ilosc_malejaco(lista);
                 break;
             default:
                 if (_DEBUG) printf("%c\n", c);
