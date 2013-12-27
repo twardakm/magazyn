@@ -2,6 +2,7 @@
 #include "lista.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 element *dodaj_towar(element *first)
 {
@@ -67,15 +68,22 @@ element * sortowanie_cena_rosnaco(element *first)
 void wyswietl_towary(element *first)
 {
     printf("DODANE TOWARY\n-------------------------\n\n");
-    printf("Nazwa towaru\tIlość\tCena\n"
-           "-----------------------------\n");
+    printf("Nazwa towaru\t\tIlość\tCena\n"
+           "--------------------------------------\n");
     while (first != NULL)
     {
-        printf("%s\t%d\t%.2f\n",
-               first->twr->nazwa,
+        if (strlen(first->twr->nazwa) < 8)
+            printf("%s\t\t\t", first->twr->nazwa);
+        else if (strlen(first->twr->nazwa) < 16)
+            printf("%s\t\t", first->twr->nazwa);
+        else
+            printf("%s\t", first->twr->nazwa);
+
+        printf("%d\t%.2f\n",
                first->twr->ilosc,
                first->twr->cena);
         first = first->next;
     }
+    printf("--------------------------------------\n");
     return;
 }
