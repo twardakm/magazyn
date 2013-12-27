@@ -77,6 +77,9 @@ element *odczytaj_plik(element *first, char *nazwa_pliku)
         temp->twr->nazwa = (char *)malloc(sizeof(char) * MAX_TOWAR_LENGHT + 1);
         fgets(temp->twr->nazwa, MAX_TOWAR_LENGHT + 1, plik); //+1 bo /n
         strtok(temp->twr->nazwa, "\n");
+        //pierwsza litera musi być duża
+        if (islower(temp->twr->nazwa[0]))
+            temp->twr->nazwa[0] = toupper(temp->twr->nazwa[0]);
         fscanf(plik, "%d", &temp->twr->ilosc);
         fscanf(plik, "%lf", &temp->twr->cena);
         while ((c = fgetc(plik)) != '}' && c != EOF) {} // żeby przeskoczyć znak '}'

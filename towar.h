@@ -17,6 +17,7 @@ element * sortowanie_cena_malejaco(element *first);
 element * sortowanie_cena_rosnaco(element *first);
 element * sortowanie_ilosc_malejaco(element *first);
 element * sortowanie_ilosc_rosnaco(element *first);
+element * sortowanie_nazwa_rosnaco(element *first);
 void wyswietl_towary(element *first);
 
 #endif // TOWAR_H
