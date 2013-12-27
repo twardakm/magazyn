@@ -68,7 +68,8 @@ element *odczytaj_plik(element *first, char *nazwa_pliku)
 
     while ((err = sprawdz_czy_komentarz(plik)) == COMMENT_OK)
     {
-        while ((c = fgetc(plik)) != '\n') {} // żeby przeskoczyć znak '{'
+        while ((c = fgetc(plik)) != '\n' && c != EOF) {} // żeby przeskoczyć znak '{'
+        if (c == EOF) break;
         temp = (element *)malloc(sizeof(element));
         temp->next = NULL;
         temp->twr = (towar *)malloc(sizeof(towar));
@@ -78,8 +79,8 @@ element *odczytaj_plik(element *first, char *nazwa_pliku)
         strtok(temp->twr->nazwa, "\n");
         fscanf(plik, "%d", &temp->twr->ilosc);
         fscanf(plik, "%lf", &temp->twr->cena);
-        while ((c = fgetc(plik)) != '}') {} // żeby przeskoczyć znak '{'
-        while ((c = fgetc(plik)) != '\n') {}
+        while ((c = fgetc(plik)) != '}' && c != EOF) {} // żeby przeskoczyć znak '}'
+        while ((c = fgetc(plik)) != '\n' && c != EOF) {}
 
         /*if (_DEBUG)
             printf("Odczytano:\n"
@@ -113,6 +114,10 @@ int sprawdz_czy_komentarz(FILE *plik)
             c = fgetc(plik);
         } while (c != '\n' && c != EOF);
         c = fgetc(plik);
+    }
+    if (c == '\n')
+    {
+        while ((c = fgetc(plik)) == '\n') {}
     }
     if (c == EOF)
         return COMMENT_EOF;
