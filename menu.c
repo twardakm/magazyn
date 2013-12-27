@@ -31,6 +31,7 @@ void menu_sortowanie(element *lista)
                 break;
             case '2':
                 if (_DEBUG) printf("%c\n", c);
+                lista = sortowanie_nazwa_malejaco(lista);
                 break;
             default:
                 if (_DEBUG) printf("%c\n", c);
