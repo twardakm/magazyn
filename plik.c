@@ -106,18 +106,17 @@ element *odczytaj_plik(element *first, char *nazwa_pliku)
 int sprawdz_czy_komentarz(FILE *plik)
 {
     char c = fgetc(plik);
-    while (c == '#' && c != EOF)
+    while ((c == '#' && c != EOF) || c == '\n')
     {
         if (_DEBUG) printf("Znaleziono komentarz\n");
-        do
+        if (c == '#')
         {
-            c = fgetc(plik);
-        } while (c != '\n' && c != EOF);
+            do
+            {
+                c = fgetc(plik);
+            } while (c != '\n' && c != EOF);
+        }
         c = fgetc(plik);
-    }
-    if (c == '\n')
-    {
-        while ((c = fgetc(plik)) == '\n') {}
     }
     if (c == EOF)
         return COMMENT_EOF;
