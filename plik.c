@@ -96,6 +96,8 @@ element *odczytaj_plik(element *first, char *nazwa_pliku)
                    temp->twr->ilosc,
                    temp->twr->cena);*/
 
+        temp->twr->czy_zmieniany = 0;
+
         first = push(first, temp);
         i++;
     }

@@ -30,6 +30,8 @@ element * dodaj_towar(element *first)
     printf("Podaj cenę towaru: ");
     scanf("%lf", &temp->twr->cena);
 
+    temp->twr->czy_zmieniany = 1;
+
     first = push(first, temp);
 
     return first;

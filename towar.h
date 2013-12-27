@@ -10,6 +10,8 @@ typedef struct towar
     char *nazwa;
     int ilosc;
     double cena;
+
+    int czy_zmieniany; //0 gdy nie zmieniany, 1 - gdy zmieniony, bądź dodany
 } towar;
 
 element * dodaj_towar(element *first);
