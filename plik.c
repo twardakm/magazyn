@@ -242,4 +242,5 @@ int zapisz_plik(element *first, char *nazwa_pliku)
     }
 
     fclose(plik);
+    return SAVE_OK;
 }

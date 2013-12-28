@@ -6,6 +6,16 @@
 #include <stdlib.h>
 #include <time.h>
 
+void menu_sklep(element *lista)
+{
+    if (lista == NULL)
+    {
+        printf("Nie dodano żadnych towarów\n");
+        return;
+    }
+    tekst_sklep(size(lista));
+}
+
 void menu_sortowanie(element *lista)
 {
     if (lista == NULL)
@@ -94,7 +104,20 @@ void tekst_powitalny(int ile)
     printf("1 - Dodaj towar\n"
            "2 - Wczytaj plik\n"
            "3 - Wyświetl dodane towary\n"
+           "4 - Przejdź do menu sklepu"
            "0 - Wyjdź\n");
+}
+
+void tekst_sklep(int ile)
+{
+    printf("\nSKLEP\n--------\n");
+    wyswietl_date();
+    printf("Towarów w sklepie: %d\n", ile);
+    printf("1 - sprzedano towar\n"
+           "2 - przyjęto towar\n"
+           "3 - wyświetl dostępny towar\n"
+           "4 - wyszukiwanie towaru\n"
+           "0 - Wróć do magazynu\n");
 }
 
 void tekst_sortowanie()
@@ -136,6 +159,9 @@ element * wiadomosc_powitalna(element *lista)
         case '3':
             if(_DEBUG) printf("Wybrano %c\n",c);
             menu_sortowanie(lista);
+            break;
+        case '4':
+            if(_DEBUG) printf("Wybrano %c\n",c);
             break;
         case '0':
             if(_DEBUG) printf("Wybrano %c\n",c);
