@@ -14,6 +14,7 @@ typedef struct towar
     int czy_zmieniany; //0 gdy nie zmieniany, 1 - gdy zmieniony, bądź dodany
 } towar;
 
+int czy_zmieniono(element * first);
 element * dodaj_towar(element *first);
 element * sortowanie_cena_malejaco(element *first);
 element * sortowanie_cena_rosnaco(element *first);

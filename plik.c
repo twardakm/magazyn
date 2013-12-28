@@ -6,6 +6,19 @@
 #include <stdio.h>
 #include <string.h>
 
+int czy_zapisac()
+{
+    char ch;
+    ch = getchar();
+
+    if (ch == 'T' || ch == 't' || ch == 'Y' || ch == 'y')
+        return 1;
+    else if (ch == 'N' || ch == 'n')
+        return 0;
+    else
+        czy_zapisac();
+}
+
 element *odczytaj_plik(element *first, char *nazwa_pliku)
 {
     int err = FILENAME_WRONG;

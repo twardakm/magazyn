@@ -5,6 +5,17 @@
 #include <string.h>
 #include <ctype.h>
 
+int czy_zmieniono(element *first)
+{
+    while (first != NULL)
+    {
+        if (first->twr->czy_zmieniany)
+            return 1;
+        first = first->next;
+    }
+    return 0;
+}
+
 element * dodaj_towar(element *first)
 {
     element *temp = (element *)malloc(sizeof(element));

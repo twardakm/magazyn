@@ -139,6 +139,11 @@ element * wiadomosc_powitalna(element *lista)
             break;
         case '0':
             if(_DEBUG) printf("Wybrano %c\n",c);
+            if (czy_zmieniono(lista))
+            {
+                printf("Dokonano zmiany w magazynie, czy chcesz zapisać? (T, N) ");
+
+            }
             printf("Dziękuję za skorzystanie z programu\nMarcin Twardak\n");
             return lista;
         default:
