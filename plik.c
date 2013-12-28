@@ -183,4 +183,63 @@ int wyswietl_pliki()
 int zapisz_plik(element *first, char *nazwa_pliku)
 {
     wyswietl_pliki();
+
+    if (nazwa_pliku == NULL)
+    {
+        nazwa_pliku = (char *)malloc(sizeof(char) * MAX_FILE_NAME + 1);
+        printf("Podaj nazwę pliku (maksymalnie %d znaków):\n", MAX_FILE_NAME);
+        //konieczne żeby odczytywać całą linię
+        //---------
+        while(getchar() != '\n');
+        fgets(nazwa_pliku, MAX_FILE_NAME + 1, stdin);
+        strtok(nazwa_pliku, "\n");
+        //---------
+    }
+    if (_DEBUG) printf ("Nazwa pliku: %s\n", nazwa_pliku);
+
+    //sprawdzanie czy jest to plik typu .mtw
+    //---------------------------------------
+
+    char *nazwa_copy = (char *)malloc(sizeof(char)*strlen(nazwa_pliku) + 1);
+    char *c_temp = nazwa_copy;
+    strcpy(nazwa_copy, nazwa_pliku);
+    nazwa_copy = strtok(nazwa_copy, ".");
+
+    nazwa_copy = strtok(NULL, ".");
+
+    if(strcmp("mtw", nazwa_copy) == 0 && (nazwa_copy = strtok(nazwa_copy, ".")) != NULL)
+    {
+        if (_DEBUG) printf("Plik OK!\n");
+    }
+    else
+    {
+        printf("Program obsługuje tylko pliki formatu *.mtw");
+        free(c_temp);
+        free(nazwa_pliku);
+        return WRONG_FORMAT;
+    }
+    //---------------------------------------
+    FILE *plik;
+    printf("Otwieranie pliku... %s ", nazwa_pliku);
+    //otwarcie podanego pliku w trybie do zapisu
+    if((plik = fopen(nazwa_pliku, "w")) == NULL)
+    {
+        perror("Nie udało się otworzyć podanego pliku\n");
+        free(nazwa_pliku);
+        return FILE_OPEN_ERR;
+    }
+    else
+        printf("OK\n");
+
+    while(first!=NULL)
+    {
+        fprintf(plik, "{\n%s\n%d\n%.2f\n}\n}",
+                first->twr->nazwa,
+                first->twr->ilosc,
+                first->twr->cena);
+        first->twr->czy_zmieniany = 0;
+        first = first->next;
+    }
+
+    fclose(plik);
 }

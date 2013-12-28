@@ -14,4 +14,7 @@
 #define FILENAME_OK 0
 #define FILENAME_WRONG 31
 
+#define SAVE_OK 0
+#define WRONG_FORMAT 41
+
 #endif // ERRORS_H
