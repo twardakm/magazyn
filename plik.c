@@ -179,3 +179,8 @@ int wyswietl_pliki()
 #endif
     return SHOW_OK;
 }
+
+int zapisz_plik(element *first, char *nazwa_pliku)
+{
+    wyswietl_pliki();
+}

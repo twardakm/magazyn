@@ -142,7 +142,8 @@ element * wiadomosc_powitalna(element *lista)
             if (czy_zmieniono(lista))
             {
                 printf("Dokonano zmiany w magazynie, czy chcesz zapisać? (T, N) ");
-
+                if(czy_zapisac())
+                    zapisz_plik(lista, NULL);
             }
             printf("Dziękuję za skorzystanie z programu\nMarcin Twardak\n");
             return lista;
