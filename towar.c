@@ -9,7 +9,7 @@ int czy_zmieniono(element *first)
 {
     while (first != NULL)
     {
-        if (first->twr->czy_zmieniany)
+        if (first->twr->czy_zmieniany || strcmp(first->twr->nazwa_pliku, first->next->twr->nazwa_pliku)!=0)
             return 1;
         first = first->next;
     }
