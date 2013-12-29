@@ -1,5 +1,6 @@
 #include "towar.h"
 #include "lista.h"
+#include "menu.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -68,22 +69,45 @@ element * dodaj_towar(element *first)
     temp->twr->nazwa = (char *)malloc(sizeof(char)*MAX_TOWAR_LENGHT + 1); //+1 na znak /0
     temp->twr->nazwa_pliku = NULL;
 
-    printf("Podaj nazwę towaru: (maks. dł: %d)\n", MAX_TOWAR_LENGHT);
+    while(getchar() != '\n');
+    printf("Podaj nazwę towaru: (maks. dł: %d, puste aby wyjść) ", MAX_TOWAR_LENGHT);
     //konieczne żeby odczytywać całą linię
     //---------
-    while(getchar() != '\n');
     fgets(temp->twr->nazwa, MAX_TOWAR_LENGHT + 1, stdin);
+    if (temp->twr->nazwa[0] == '\n')
+    {
+        free (temp->twr->nazwa);
+        free (temp->twr);
+        free (temp);
+        return first;
+    }
     strtok(temp->twr->nazwa, "\n");
     //pierwsza litera musi być duża
     if (islower(temp->twr->nazwa[0]))
         temp->twr->nazwa[0] = toupper(temp->twr->nazwa[0]);
     //---------
 
-    printf("Podaj ilość towaru: ");
+    printf("Podaj ilość towaru: (0 aby wyjść) ");
     scanf("%d", &temp->twr->ilosc);
+    if (temp->twr->ilosc == 0)
+    {
+        free (temp->twr->nazwa);
+        free (temp->twr);
+        free (temp);
 
-    printf("Podaj cenę towaru: ");
+        return first;
+    }
+
+    printf("Podaj cenę towaru: (0 aby wyjść) ");
     scanf("%lf", &temp->twr->cena);
+
+    if (temp->twr->cena == 0)
+    {
+        free (temp->twr->nazwa);
+        free (temp->twr);
+        free (temp);
+        return first;
+    }
 
     temp->twr->czy_zmieniany = 1;
 

@@ -14,7 +14,7 @@ element *menu_sklep(element *lista)
         return lista;
     }
     tekst_sklep(size(lista));
-    int c;
+    int c = getchar();
 
     while(c = getchar())
     {
@@ -30,7 +30,7 @@ element *menu_sklep(element *lista)
             break;
         case '0':
             if(_DEBUG) printf("Wybrano %c\n",c);
-            printf("Czy aby na pewno chcesz wyjść? ");
+            printf("Czy aby na pewno chcesz wyjść? (T, N) ");
             if(czy_zapisac())
                 return lista;
             break;
@@ -169,15 +169,16 @@ void ustaw_kodowanie()
 element * wiadomosc_powitalna(element *lista)
 {
     tekst_powitalny(size(lista));
-    int c;
+    int c = getchar();
 
-    while(c = getchar())
+    while(1)
     {
         switch(c)
         {
         case '1':
             if(_DEBUG) printf("Wybrano %c\n",c);
-            lista = dodaj_towar(lista);
+            lista = przyjeto_towar(lista);
+            c = 0;
             break;
         case '2':
             if(_DEBUG) printf("Wybrano %c\n",c);
@@ -205,6 +206,13 @@ element * wiadomosc_powitalna(element *lista)
             tekst_powitalny(size(lista));
             break;
         }
+        if (c == 0)
+        {
+            tekst_powitalny(size(lista));
+            c = getchar();
+        }
+        else
+            c = getchar();
     }
 }
 
