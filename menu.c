@@ -20,6 +20,9 @@ element *menu_sklep(element *lista)
     {
         switch(c)
         {
+        case '1':
+            if(_DEBUG) printf("Wybrano %c\n",c);
+            break;
         case '0':
             if(_DEBUG) printf("Wybrano %c\n",c);
             printf("Czy aby na pewno chcesz wyjść? ");

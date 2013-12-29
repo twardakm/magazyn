@@ -9,7 +9,12 @@ int czy_zmieniono(element *first)
 {
     while (first != NULL)
     {
-        if (first->twr->czy_zmieniany || strcmp(first->twr->nazwa_pliku, first->next->twr->nazwa_pliku)!=0)
+        if(first->next == NULL)
+        {
+            if (first->twr->czy_zmieniany)
+                return;
+        }
+        else if (first->twr->czy_zmieniany || strcmp(first->twr->nazwa_pliku, first->next->twr->nazwa_pliku)!=0)
             return 1;
         first = first->next;
     }
@@ -254,13 +259,25 @@ element * sortowanie_nazwa_rosnaco(element *first)
     return first;
 }
 
+element * sprzedanie_towaru(element *first)
+{
+
+}
+
 void wyswietl_towary(element *first)
 {
-    printf("DODANE TOWARY\n-------------------------\n\n");
-    printf("Nazwa towaru\t\tIlość\tCena\n"
+    if (size(first) == 0)
+    {
+        printf("Nie dodano żadnych towarów!\n");
+        return;
+    }
+    int i = 1;
+    printf("DODANE TOWARY\n--------------------------------------\n\n");
+    printf("Lp\tNazwa towaru\t\tIlość\tCena\n"
            "--------------------------------------\n");
     while (first != NULL)
     {
+        printf("%d\t", i);
         if (strlen(first->twr->nazwa) < 8)
             printf("%s\t\t\t", first->twr->nazwa);
         else if (strlen(first->twr->nazwa) < 16)
@@ -272,6 +289,7 @@ void wyswietl_towary(element *first)
                first->twr->ilosc,
                first->twr->cena);
         first = first->next;
+        i++;
     }
     printf("--------------------------------------\n");
     return;
