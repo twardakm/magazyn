@@ -268,19 +268,45 @@ element * sprzedanie_towaru(element *first)
         return first;
     }
     int d, ile;
+    element *temp;
     wyswietl_towary(first);
     do
     {
         printf("Który towar sprzedano - podaj Lp: ");
         scanf("%d", &d);
     } while (d > size(first) || d <= 0);
+    temp = position(first, d-1);
     do
     {
         printf("Ile sztuk sprzedano: ");
         scanf ("%d", &ile);
-    } while(ile > position(first, d-1)->twr->ilosc || d <= 0);
+    } while(ile > temp->twr->ilosc || d <= 0);
 
     if (_DEBUG) printf("Wybrano towar: %d, sztuk: %d\n", d, ile);
+
+    temp->twr->czy_zmieniany = 1;
+    temp->twr->ilosc -= ile;
+    if (temp->twr->ilosc == 0)
+    {
+        //usunięcie danego elementu
+        printf("Towaru %s już brak na magazynie. Usuwam.\n",temp->twr->nazwa);
+
+        free (temp->twr->nazwa_pliku);
+        free (temp->twr->nazwa);
+        free (temp->twr);
+
+        if (temp->next == NULL)
+            temp->prev->next = NULL;
+        else
+            temp->prev->next = temp->next;
+        if (temp->prev == NULL)
+            first = temp->next;
+        else
+            temp->next->prev = temp->prev;
+
+        free (temp);
+        return first;
+    }
 
     return first;
 }
