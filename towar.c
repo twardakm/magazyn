@@ -261,7 +261,28 @@ element * sortowanie_nazwa_rosnaco(element *first)
 
 element * sprzedanie_towaru(element *first)
 {
+    sortowanie_nazwa_rosnaco(first);
+    if (first == NULL)
+    {
+        printf("Nie dodano żadnego towaru\n");
+        return first;
+    }
+    int d, ile;
+    wyswietl_towary(first);
+    do
+    {
+        printf("Który towar sprzedano - podaj Lp: ");
+        scanf("%d", &d);
+    } while (d > size(first) || d <= 0);
+    do
+    {
+        printf("Ile sztuk sprzedano: ");
+        scanf ("%d", &ile);
+    } while(ile > position(first, d-1)->twr->ilosc || d <= 0);
 
+    if (_DEBUG) printf("Wybrano towar: %d, sztuk: %d\n", d, ile);
+
+    return first;
 }
 
 void wyswietl_towary(element *first)
