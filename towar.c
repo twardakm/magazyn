@@ -30,7 +30,34 @@ int czy_zmieniono(element *first)
 
 element * dodaj_sztuk_towaru(element *first)
 {
+    if (first == NULL)
+    {
+        printf("Nie dodano żadnego towaru\n");
+        return first;
+    }
+    first = sortowanie_nazwa_rosnaco(first);
+    int d, ile;
+    element *temp;
+    do
+    {
+        printf("Który towar dodano - podaj Lp (0 aby wyjść): ");
+        scanf("%d", &d);
+    } while (d > size(first) || d < 0);
+    if (d == 0) return first;
+    temp = position(first, d-1);
+    do
+    {
+        printf("Ile sztuk dodano (0 aby wyjść): ");
+        scanf ("%d", &ile);
+    } while(ile < 0);
+    if (ile == 0) return first;
 
+    if (_DEBUG) printf("Wybrano towar: %d, sztuk: %d\n", d, ile);
+
+    temp->twr->czy_zmieniany = 1;
+    temp->twr->ilosc += ile;
+
+    return first;
 }
 
 element * dodaj_towar(element *first)
@@ -320,10 +347,10 @@ element * sprzedanie_towaru(element *first)
     temp = position(first, d-1);
     do
     {
-        printf("Ile sztuk sprzedano: ");
+        printf("Ile sztuk sprzedano (0 aby wyjść): ");
         scanf ("%d", &ile);
-    } while(ile > temp->twr->ilosc || d <= 0);
-
+    } while(ile > temp->twr->ilosc || ile < 0);
+    if (ile == 0) return first;
     if (_DEBUG) printf("Wybrano towar: %d, sztuk: %d\n", d, ile);
 
     temp->twr->czy_zmieniany = 1;
