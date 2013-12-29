@@ -14,6 +14,23 @@ element *menu_sklep(element *lista)
         return lista;
     }
     tekst_sklep(size(lista));
+    int c;
+
+    while(c = getchar())
+    {
+        switch(c)
+        {
+        case '0':
+            if(_DEBUG) printf("Wybrano %c\n",c);
+            printf("Czy aby na pewno chcesz wyjść? ");
+            if(czy_zapisac())
+                return lista;
+            break;
+        default:
+            tekst_sklep(size(lista));
+            break;
+        }
+    }
 
     return lista;
 }
