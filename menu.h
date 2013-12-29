@@ -2,7 +2,7 @@
 #define MENU_H
 #include "lista.h"
 
-void menu_sklep(element *lista);
+element * menu_sklep(element *lista);
 void menu_sortowanie(element *lista);
 void tekst_powitalny(int ile);
 void tekst_sklep(int ile);
