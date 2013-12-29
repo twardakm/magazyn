@@ -26,7 +26,7 @@ element *menu_sklep(element *lista)
             break;
         case '2':
             if (_DEBUG) printf("Wybrano %c\n",c);
-            lista = dodaj_towar(lista);
+            lista = przyjeto_towar(lista);
             break;
         case '0':
             if(_DEBUG) printf("Wybrano %c\n",c);

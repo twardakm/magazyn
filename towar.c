@@ -28,6 +28,11 @@ int czy_zmieniono(element *first)
     return 0;
 }
 
+element * dodaj_sztuk_towaru(element *first)
+{
+
+}
+
 element * dodaj_towar(element *first)
 {
     element *temp = (element *)malloc(sizeof(element));
@@ -57,6 +62,36 @@ element * dodaj_towar(element *first)
 
     first = push(first, temp);
 
+    return first;
+}
+
+element * przyjeto_towar(element *first)
+{
+    if (first == NULL)
+    {
+        first = dodaj_towar(first);
+        return first;
+    }
+    tekst_przyjeto_towar();
+    char c = getchar();
+
+    while(c = getchar())
+    {
+        switch(c)
+        {
+        case '1':
+            if(_DEBUG) printf("Wybrano %c\n", c);
+            first = dodaj_towar(first);
+            return first;
+        case '2':
+            if(_DEBUG) printf("Wybrano %c\n", c);
+            first = dodaj_sztuk_towaru(first);
+            return first;
+        default:
+            tekst_przyjeto_towar();
+            break;
+        }
+    }
     return first;
 }
 
@@ -268,7 +303,7 @@ element * sortowanie_nazwa_rosnaco(element *first)
 
 element * sprzedanie_towaru(element *first)
 {
-    sortowanie_nazwa_rosnaco(first);
+    first = sortowanie_nazwa_rosnaco(first);
     if (first == NULL)
     {
         printf("Nie dodano żadnego towaru\n");
@@ -276,12 +311,12 @@ element * sprzedanie_towaru(element *first)
     }
     int d, ile;
     element *temp;
-    wyswietl_towary(first);
     do
     {
-        printf("Który towar sprzedano - podaj Lp: ");
+        printf("Który towar sprzedano - podaj Lp (0 aby wyjść): ");
         scanf("%d", &d);
-    } while (d > size(first) || d <= 0);
+    } while (d > size(first) || d < 0);
+    if (d == 0) return first;
     temp = position(first, d-1);
     do
     {
@@ -316,6 +351,13 @@ element * sprzedanie_towaru(element *first)
     }
 
     return first;
+}
+
+void tekst_przyjeto_towar()
+{
+    printf("Chcesz dodać\n"
+           "1 - Nowy towar\n"
+           "2 - Ilość sztuk już dodanego towaru\n");
 }
 
 void wyswietl_towary(element *first)
