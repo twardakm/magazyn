@@ -12,8 +12,15 @@ int czy_zmieniono(element *first)
         if(first->next == NULL)
         {
             if (first->twr->czy_zmieniany)
-                return;
+                return 1;
         }
+        else if (first->twr->nazwa_pliku == NULL && first->next->twr->nazwa_pliku == NULL)
+        {
+            if (first->twr->czy_zmieniany)
+                return 1;
+        }
+        else if (first->twr->nazwa_pliku == NULL || first->next->twr->nazwa_pliku == NULL)
+            return 1;
         else if (first->twr->czy_zmieniany || strcmp(first->twr->nazwa_pliku, first->next->twr->nazwa_pliku)!=0)
             return 1;
         first = first->next;
