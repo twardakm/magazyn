@@ -16,7 +16,7 @@ element *menu_sklep(element *lista)
     tekst_sklep(size(lista));
     int c = getchar();
 
-    while(c = getchar())
+    while(1)
     {
         switch(c)
         {
@@ -38,6 +38,13 @@ element *menu_sklep(element *lista)
             tekst_sklep(size(lista));
             break;
         }
+        if (c == 0)
+        {
+            tekst_powitalny(size(lista));
+            c = getchar();
+        }
+        else
+            c = getchar();
     }
 
     return lista;
@@ -209,7 +216,7 @@ element * wiadomosc_powitalna(element *lista)
         if (c == 0)
         {
             tekst_powitalny(size(lista));
-            c = getchar();
+            while((c = getchar())=='\n');
         }
         else
             c = getchar();
