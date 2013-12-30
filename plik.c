@@ -161,7 +161,12 @@ element *odczytaj_plik(element *first, char *nazwa_pliku, int czy_wszystkie)
             {
                 temp = position(first2, d-1);
                 temp->twr->czy_zmieniany = 1;
-                printf("Dodano %s\n", temp->twr->nazwa);
+                printf("Dodano %s %d %d %s %.2f\n",
+                       temp->twr->nazwa,
+                       temp->twr->ilosc,
+                       temp->twr->rozmiar,
+                       temp->twr->kolor,
+                       temp->twr->cena);
 
                 //żeby ominęło przy clear
                 //-----------
@@ -176,6 +181,7 @@ element *odczytaj_plik(element *first, char *nazwa_pliku, int czy_wszystkie)
                 {
                     printf("Nie ma już więcej towarów do dodania w danym pliku\n");
                     d = 0;
+                    first2 = NULL;
                 }
                 else
                 {

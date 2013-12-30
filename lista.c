@@ -16,13 +16,13 @@ element * clear(element *first)
     {
         element * temp = first;
         char * c = first->twr->nazwa_pliku;
-        free (first->twr->nazwa_pliku);
         while (temp != NULL)
         {
             temp = temp->prev;
             if (temp != NULL && temp->twr->nazwa_pliku == c)
                 temp->twr->nazwa_pliku = NULL;
         }
+        free (first->twr->nazwa_pliku);
     }
 
 
@@ -58,6 +58,7 @@ element * push(element *first, element *newone)
     if(first == NULL)
     {
         newone->prev = NULL;
+        newone->next = NULL;
         return newone;
     }
     while(temp->next != NULL)
@@ -65,6 +66,7 @@ element * push(element *first, element *newone)
         temp = temp->next;
     }
     temp->next=newone;
+    temp->next->next = NULL;
     temp->next->prev = temp;
     return first;
 }
