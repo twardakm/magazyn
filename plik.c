@@ -50,9 +50,17 @@ element *odczytaj_plik(element *first, char *nazwa_pliku)
 
     nazwa_copy = strtok(NULL, ".");
 
-    if(strcmp("mtw", nazwa_copy) == 0 && (nazwa_copy = strtok(nazwa_copy, ".")) != NULL)
+    if (nazwa_copy == NULL)
+    {
+        printf("Program obsługuje tylko pliki formatu *.mtw");
+        free(c_temp);
+        free(nazwa_pliku);
+        return first;
+    }
+    else if(strcmp("mtw", nazwa_copy) == 0 && (nazwa_copy = strtok(nazwa_copy, ".")) != NULL)
     {
         if (_DEBUG) printf("Plik OK!\n");
+        free(c_temp);
     }
     else
     {
@@ -61,7 +69,6 @@ element *odczytaj_plik(element *first, char *nazwa_pliku)
         free(nazwa_pliku);
         return first;
     }
-
 
     //---------------------------------------
 
