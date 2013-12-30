@@ -32,6 +32,7 @@ element * sortowanie_nazwa_rosnaco(element *first);
 element * sortowanie_rozmiar_malejaco(element *first);
 element * sortowanie_rozmiar_rosnaco(element *first);
 element * sprzedanie_towaru(element *first);
+element * usun_towar(element *first, element *temp);
 void tekst_przyjeto_towar();
 void wyswietl_rozmiary();
 void wyswietl_towary(element *first, int * ktory, int ile);

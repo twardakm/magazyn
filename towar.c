@@ -558,7 +558,6 @@ element * sprzedanie_towaru(element *first)
     first = sortowanie_nazwa_rosnaco(first);
     int d, ile;
     element *temp;
-    element *t = first;
     do
     {
         printf("Który towar sprzedano - podaj Lp (0 aby wyjść): ");
@@ -581,43 +580,50 @@ element * sprzedanie_towaru(element *first)
         //usunięcie danego elementu
         printf("Towaru %s już brak na magazynie. Usuwam.\n",temp->twr->nazwa);
 
-        char *c = temp->twr->nazwa_pliku;
-        d = 0;
-        while (t != NULL)
-        {
-            if (c == temp->twr->nazwa_pliku)
-                d++;
-            t = t->next;
-        }
-        if (d == 1)
-            free (temp->twr->nazwa_pliku);
-
-        free (temp->twr->kolor);
-        free (temp->twr->nazwa);
-        free (temp->twr);
-
-        if (temp->next == NULL && temp->prev != NULL)
-            temp->prev->next = NULL;
-        else if (temp->next != NULL && temp->prev == NULL)
-        {
-            first = temp->next;
-            first->prev = NULL;
-        }
-        else if (temp->next == NULL && temp->prev == NULL)
-        {
-            free (temp);
-            return NULL;
-        }
-        else
-        {
-            temp->prev->next = temp->next;
-            temp->next->prev = temp->prev;
-        }
-
-        free (temp);
-        return first;
+        return (usun_towar(first, temp));
     }
 
+    return first;
+}
+
+element * usun_towar(element *first, element *temp)
+{
+    element *t = first;
+    char *c = temp->twr->nazwa_pliku;
+    int d = 0;
+    while (t != NULL)
+    {
+        if (c == temp->twr->nazwa_pliku)
+            d++;
+        t->twr->czy_zmieniany = 1; //skoro 1 usunięty zaznaczam na wszystkich
+        t = t->next;
+    }
+    if (d == 1)
+        free (temp->twr->nazwa_pliku);
+
+    free (temp->twr->kolor);
+    free (temp->twr->nazwa);
+    free (temp->twr);
+
+    if (temp->next == NULL && temp->prev != NULL)
+        temp->prev->next = NULL;
+    else if (temp->next != NULL && temp->prev == NULL)
+    {
+        first = temp->next;
+        first->prev = NULL;
+    }
+    else if (temp->next == NULL && temp->prev == NULL)
+    {
+        free (temp);
+        return NULL;
+    }
+    else
+    {
+        temp->prev->next = temp->next;
+        temp->next->prev = temp->prev;
+    }
+
+    free (temp);
     return first;
 }
 
