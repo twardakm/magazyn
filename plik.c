@@ -205,7 +205,7 @@ int zapisz_plik(element *first, char *nazwa_pliku)
     if (nazwa_pliku == NULL)
     {
         nazwa_pliku = (char *)malloc(sizeof(char) * MAX_FILE_NAME + 1);
-        printf("Podaj nazwę pliku (maksymalnie %d znaków):\n", MAX_FILE_NAME);
+        printf("Podaj nazwę pliku - maksymalnie %d znaków (pusty wiersz oznacza wyjście bez zapisywania):\n", MAX_FILE_NAME);
         //konieczne żeby odczytywać całą linię
         //---------
         while(getchar() != '\n');
@@ -214,13 +214,22 @@ int zapisz_plik(element *first, char *nazwa_pliku)
         //---------
     }
     if (_DEBUG) printf ("Nazwa pliku: %s\n", nazwa_pliku);
-
+    if(nazwa_pliku[0] == '\n')
+    {
+        free(nazwa_pliku);
+        return SAVE_FAIL;
+    }
     while(czy_mtw(nazwa_pliku) == 0)
     {
         nazwa_pliku = (char *)malloc(sizeof(char) * MAX_FILE_NAME + 1);
         printf("Podaj prawidłową nazwę pliku: ");
         fgets(nazwa_pliku, MAX_FILE_NAME + 1, stdin);
         strtok(nazwa_pliku, "\n");
+        if(nazwa_pliku[0] == '\n')
+        {
+            free(nazwa_pliku);
+            return SAVE_FAIL;
+        }
     }
 
     FILE *plik;
