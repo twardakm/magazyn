@@ -27,6 +27,7 @@ element *menu_sklep(element *lista)
         case '2':
             if (_DEBUG) printf("Wybrano %c\n",c);
             lista = przyjeto_towar(lista);
+            c = 0;
             break;
         case '0':
             if(_DEBUG) printf("Wybrano %c\n",c);
@@ -41,7 +42,7 @@ element *menu_sklep(element *lista)
         if (c == 0)
         {
             tekst_powitalny(size(lista));
-            c = getchar();
+            while((c = getchar())=='\n');
         }
         else
             c = getchar();
