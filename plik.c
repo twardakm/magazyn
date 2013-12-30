@@ -251,9 +251,11 @@ int zapisz_plik(element *first, char *nazwa_pliku)
 
     while(first!=NULL)
     {
-        fprintf(plik, "{\n%s\n%d\n%.2f\n}\n",
+        fprintf(plik, "{\n%s\n%d\n%d\n%s\n%.2f\n}\n",
                 first->twr->nazwa,
                 first->twr->ilosc,
+                first->twr->rozmiar,
+                first->twr->kolor,
                 first->twr->cena);
         first->twr->czy_zmieniany = 0;
         first = first->next;
