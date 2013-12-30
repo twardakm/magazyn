@@ -2,6 +2,7 @@
 #include "towar.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 element * clear(element *first)
 {
@@ -10,9 +11,6 @@ element * clear(element *first)
     clear(first->next);
 
     if (_DEBUG) printf("Zwolniono pamięć %s\n", first->twr->nazwa);
-
-    if(first->twr->nazwa_pliku != NULL)
-        free(first->twr->nazwa_pliku);
 
     free(first->twr->nazwa);
     free(first->twr->kolor);
