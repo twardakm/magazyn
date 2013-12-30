@@ -20,7 +20,7 @@ int czy_mtw(char *nazwa_pliku)
 
     if (nazwa_copy == NULL)
     {
-        printf("Program obsługuje tylko pliki formatu *.mtw");
+        printf("Program obsługuje tylko pliki formatu *.mtw\n");
         free(c_temp);
         free(nazwa_pliku);
         return 0;
@@ -33,7 +33,7 @@ int czy_mtw(char *nazwa_pliku)
     }
     else
     {
-        printf("Program obsługuje tylko pliki formatu *.mtw");
+        printf("Program obsługuje tylko pliki formatu *.mtw\n");
         free(c_temp);
         free(nazwa_pliku);
         return 0;
@@ -215,37 +215,13 @@ int zapisz_plik(element *first, char *nazwa_pliku)
     }
     if (_DEBUG) printf ("Nazwa pliku: %s\n", nazwa_pliku);
 
-    //sprawdzanie czy jest to plik typu .mtw
-    //---------------------------------------
-/*
-    char *nazwa_copy = (char *)malloc(sizeof(char)*strlen(nazwa_pliku) + 1);
-    char *c_temp = nazwa_copy;
-    strcpy(nazwa_copy, nazwa_pliku);
-    nazwa_copy = strtok(nazwa_copy, ".");
-
-    nazwa_copy = strtok(NULL, ".");
-
-    if (nazwa_copy == NULL)
+    while(czy_mtw(nazwa_pliku) == 0)
     {
-        printf("Program obsługuje tylko pliki formatu *.mtw");
-        free(c_temp);
-        free(nazwa_pliku);
-        return first;
+        nazwa_pliku = (char *)malloc(sizeof(char) * MAX_FILE_NAME + 1);
+        printf("Podaj prawidłową nazwę pliku: ");
+        fgets(nazwa_pliku, MAX_FILE_NAME + 1, stdin);
+        strtok(nazwa_pliku, "\n");
     }
-    else if(strcmp("mtw", nazwa_copy) == 0 && (nazwa_copy = strtok(nazwa_copy, ".")) != NULL)
-    {
-        if (_DEBUG) printf("Plik OK!\n");
-        free(c_temp);
-    }
-    else
-    {
-        printf("Program obsługuje tylko pliki formatu *.mtw");
-        free(c_temp);
-        free(nazwa_pliku);
-        return first;
-    }
-*/
-    //---------------------------------------
 
     FILE *plik;
     printf("Otwieranie pliku... %s ", nazwa_pliku);
