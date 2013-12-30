@@ -104,18 +104,26 @@ element * dodaj_towar(element *first)
     getchar();
     c = getchar();
 
-    while (c < 0 && c > 8)
+    do
     {
         switch (c)
         {
-        case '1': temp->twr->rozmiar = 1; break;
-        case '2': temp->twr->rozmiar = 2; break;
-        case '3': temp->twr->rozmiar = 3; break;
-        case '4': temp->twr->rozmiar = 4; break;
-        case '5': temp->twr->rozmiar = 5; break;
-        case '6': temp->twr->rozmiar = 6; break;
-        case '7': temp->twr->rozmiar = 7; break;
-        case '8': temp->twr->rozmiar = 8; break;
+        case '1':
+            temp->twr->rozmiar = 1; break;
+        case '2':
+            temp->twr->rozmiar = 2; break;
+        case '3':
+            temp->twr->rozmiar = 3; break;
+        case '4':
+            temp->twr->rozmiar = 4; break;
+        case '5':
+            temp->twr->rozmiar = 5; break;
+        case '6':
+            temp->twr->rozmiar = 6; break;
+        case '7':
+            temp->twr->rozmiar = 7; break;
+        case '8':
+            temp->twr->rozmiar = 8; break;
         case '0':
             free (temp->twr->nazwa);
             free (temp->twr);
@@ -128,7 +136,7 @@ element * dodaj_towar(element *first)
             c = getchar();
             break;
         }
-    }
+    } while (c < '0' && c > '8');
     getchar();
 
     temp->twr->kolor = (char *)malloc(sizeof(char) * MAX_COLOR_LENGHT+1);
@@ -478,9 +486,9 @@ void wyswietl_towary(element *first, int * ktory, int ile)
         return;
     }
     int i = 0;
-    printf("DODANE TOWARY\n--------------------------------------\n\n");
-    printf("Lp\tNazwa towaru\t\tIlość\tCena\n"
-           "--------------------------------------\n");
+    printf("DODANE TOWARY\n----------------------------------------------------------------------\n\n");
+    printf("Lp\tNazwa towaru\t\tIlość\tRozmiar\tKolor\t\tCena\n"
+           "----------------------------------------------------------------------\n");
     element *lista = first;
     do
     {
@@ -494,15 +502,32 @@ void wyswietl_towary(element *first, int * ktory, int ile)
         else
             printf("%s\t", first->twr->nazwa);
 
-        printf("%d\t%.2f\n",
-               first->twr->ilosc,
-               first->twr->cena);
+        printf("%d\t", first->twr->ilosc);
+
+        switch(first->twr->rozmiar)
+        {
+        case 1: printf("XS\t"); break;
+        case 2: printf("S\t"); break;
+        case 3: printf("M\t"); break;
+        case 4: printf("L\t"); break;
+        case 5: printf("XL\t"); break;
+        case 6: printf("2XL\t"); break;
+        case 7: printf("3XL\t"); break;
+        case 8: printf("4XL\t"); break;
+        }
+
+        if (strlen(first->twr->kolor) < 8)
+            printf("%s\t\t", first->twr->kolor);
+        else
+            printf("%s\t", first->twr->kolor);
+
+        printf("%.2f\n", first->twr->cena);
         if (ktory == NULL)
             first = first->next;
         i++;
     } while (first != NULL && (ktory == NULL || i < ile));
 
-    printf("--------------------------------------\n");
+    printf("----------------------------------------------------------------------\n");
     return;
 }
 
