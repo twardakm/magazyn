@@ -13,6 +13,7 @@ element *menu_sklep(element *lista)
         printf("Nie dodano żadnych towarów\n");
         return lista;
     }
+    getchar();
     tekst_sklep(size(lista));
     int c = getchar();
 
