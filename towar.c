@@ -455,7 +455,11 @@ void wyszukiwanie_towaru(element *first)
     }
 
     int i;
+    int j = 0;
+    int ile = 0;
     char *nazwa = (char *)malloc(sizeof(char) * MAX_TOWAR_LENGHT + 1);
+    int *ktore = (int *)malloc(sizeof(int) * size(first));
+    element *lista = first;
 
     while(getchar() != '\n');
     printf("Podaj nazwę bądź jej początek do wyszukania - wielkość liter nie ma znaczenia (pusty wiersz wychodzi): ");
@@ -472,18 +476,27 @@ void wyszukiwanie_towaru(element *first)
     {
         for (i = 0; i < strlen(first->twr->nazwa); i++)
         {
-            if(tolower(first->twr->nazwa[i]) == nazwa[i])
+            if(tolower(first->twr->nazwa[i]) == tolower(nazwa[i]))
             {
                 if (nazwa[i+1] == '\0')
                 {
-                    //wyświetlenie towaru
+                    //to znaczy że pasują do siebie
+                    *(ktore + ile) = j;
+                    ile++;
+                    i = strlen(first->twr->nazwa); //sprawdzić czy break zadziała
                 }
             }
+            else
+                i = strlen(first->twr->nazwa);
         }
 
         first = first->next;
+        j++;
     }
 
+    wyswietl_towary(lista, ktore, ile);
+
+    free (ktore);
     free (nazwa);
     return;
 }
