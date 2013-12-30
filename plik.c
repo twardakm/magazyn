@@ -2,6 +2,7 @@
 #include "lista.h"
 #include "errors.h"
 #include "towar.h"
+#include "menu.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -56,7 +57,6 @@ int czy_zapisac()
 
 element *odczytaj_plik(element *first, char *nazwa_pliku, int czy_wszystkie)
 {
-    int err = FILENAME_WRONG;
     int i = 0;
     char c;
 
@@ -65,13 +65,19 @@ element *odczytaj_plik(element *first, char *nazwa_pliku, int czy_wszystkie)
     if (nazwa_pliku == NULL)
     {
         nazwa_pliku = (char *)malloc(sizeof(char) * MAX_FILE_NAME + 1);
-        printf("Podaj nazwę pliku (maksymalnie %d znaków):\n", MAX_FILE_NAME);
+        printf("Podaj nazwę pliku (maksymalnie %d znaków, puste jeśli chcesz wyjść):\n", MAX_FILE_NAME);
         //konieczne żeby odczytywać całą linię
         //---------
         while(getchar() != '\n');
         fgets(nazwa_pliku, MAX_FILE_NAME + 1, stdin);
         strtok(nazwa_pliku, "\n");
         //---------
+        if (nazwa_pliku[0] == '\n')
+        {
+            free(nazwa_pliku);
+            tekst_powitalny(size(first));
+            return first;
+        }
     }
     if (_DEBUG) printf ("Nazwa pliku: %s\n", nazwa_pliku);
 
@@ -99,7 +105,7 @@ element *odczytaj_plik(element *first, char *nazwa_pliku, int czy_wszystkie)
 
     element *first2 = NULL;
 
-    while ((err = sprawdz_czy_komentarz(plik)) == COMMENT_OK)
+    while (sprawdz_czy_komentarz(plik) == COMMENT_OK)
     {
         while ((c = fgetc(plik)) != '\n' && c != EOF) {} // żeby przeskoczyć znak '{'
         if (c == EOF) break;
@@ -161,12 +167,7 @@ element *odczytaj_plik(element *first, char *nazwa_pliku, int czy_wszystkie)
             {
                 temp = position(first2, d-1);
                 temp->twr->czy_zmieniany = 1;
-                printf("Dodano %s %d %d %s %.2f\n",
-                       temp->twr->nazwa,
-                       temp->twr->ilosc,
-                       temp->twr->rozmiar,
-                       temp->twr->kolor,
-                       temp->twr->cena);
+                printf("Dodano %s\n", temp->twr->nazwa);
 
                 //żeby ominęło przy clear
                 //-----------
