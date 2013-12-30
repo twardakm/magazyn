@@ -151,6 +151,10 @@ element * dodaj_towar(element *first)
         return first;
     }
     strtok(temp->twr->kolor, "\n");
+    //pierwsza litera musi być duża
+    if (islower(temp->twr->kolor[0]))
+        temp->twr->kolor[0] = toupper(temp->twr->kolor[0]);
+    //---------
 
     printf("Podaj cenę towaru: (0 aby wyjść) ");
     scanf("%lf", &temp->twr->cena);
@@ -336,6 +340,76 @@ element * sortowanie_ilosc_rosnaco(element *first)
     return first;
 }
 
+element * sortowanie_kolor_malejaco(element *first)
+{
+    if (first == NULL)
+    {
+        printf("Nie dodano żadnych towarów\n");
+        return;
+    }
+    int czy = 0; //oznaczenie czy zmieniono coś w jednym przebiegu
+    towar *temp;
+    do
+    {
+        czy = 0;
+        while (first->prev != NULL) {first = first->prev; } //powrót do początku
+        while (first != NULL && first->next != NULL)
+        {
+
+            if (strcoll(first->next->twr->kolor, first->twr->kolor) > 0)
+            {
+                //zamiana kolejności
+                temp = first->twr;
+                first->twr = first->next->twr;
+                first->next->twr = temp;
+                czy = 1;
+            }
+            first = first->next;
+        }
+    } while(czy);
+
+    while (first->prev != NULL) {first = first->prev; } //powrót do początku
+
+    wyswietl_towary(first,NULL,0);
+
+    return first;
+}
+
+element * sortowanie_kolor_rosnaco(element *first)
+{
+    if (first == NULL)
+    {
+        printf("Nie dodano żadnych towarów\n");
+        return;
+    }
+    int czy = 0; //oznaczenie czy zmieniono coś w jednym przebiegu
+    towar *temp;
+    do
+    {
+        czy = 0;
+        while (first->prev != NULL) {first = first->prev; } //powrót do początku
+        while (first != NULL && first->next != NULL)
+        {
+
+            if (strcoll(first->next->twr->kolor, first->twr->kolor) < 0)
+            {
+                //zamiana kolejności
+                temp = first->twr;
+                first->twr = first->next->twr;
+                first->next->twr = temp;
+                czy = 1;
+            }
+            first = first->next;
+        }
+    } while(czy);
+
+    while (first->prev != NULL) {first = first->prev; } //powrót do początku
+
+    wyswietl_towary(first,NULL,0);
+
+    return first;
+}
+
 element * sortowanie_nazwa_malejaco(element *first)
 {
     if (first == NULL)
@@ -388,6 +462,74 @@ element * sortowanie_nazwa_rosnaco(element *first)
         {
 
             if (strcoll(first->next->twr->nazwa, first->twr->nazwa) < 0)
+            {
+                //zamiana kolejności
+                temp = first->twr;
+                first->twr = first->next->twr;
+                first->next->twr = temp;
+                czy = 1;
+            }
+            first = first->next;
+        }
+    } while(czy);
+
+    while (first->prev != NULL) {first = first->prev; } //powrót do początku
+
+    wyswietl_towary(first,NULL,0);
+
+    return first;
+}
+
+element * sortowanie_rozmiar_malejaco(element *first)
+{
+    if (first == NULL)
+    {
+        printf("Nie dodano żadnych towarów\n");
+        return;
+    }
+    int czy = 0; //oznaczenie czy zmieniono coś w jednym przebiegu
+    towar *temp;
+    do
+    {
+        czy = 0;
+        while (first->prev != NULL) {first = first->prev; } //powrót do początku
+        while (first != NULL && first->next != NULL)
+        {
+            if (first->next->twr->rozmiar > first->twr->rozmiar)
+            {
+                //zamiana kolejności
+                temp = first->twr;
+                first->twr = first->next->twr;
+                first->next->twr = temp;
+                czy = 1;
+            }
+            first = first->next;
+        }
+    } while(czy);
+
+    while (first->prev != NULL) {first = first->prev; } //powrót do początku
+
+    wyswietl_towary(first,NULL,0);
+
+    return first;
+}
+
+element * sortowanie_rozmiar_rosnaco(element *first)
+{
+    if (first == NULL)
+    {
+        printf("Nie dodano żadnych towarów\n");
+        return;
+    }
+    int czy = 0; //oznaczenie czy zmieniono coś w jednym przebiegu
+    towar *temp;
+    do
+    {
+        czy = 0;
+        while (first->prev != NULL) {first = first->prev; } //powrót do początku
+        while (first != NULL && first->next != NULL)
+        {
+            if (first->next->twr->rozmiar < first->twr->rozmiar)
             {
                 //zamiana kolejności
                 temp = first->twr;

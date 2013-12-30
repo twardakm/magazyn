@@ -119,6 +119,44 @@ void menu_sortowanie(element *lista)
             {
             case '1':
                 if (_DEBUG) printf("%c\n", c);
+                lista = sortowanie_rozmiar_rosnaco(lista);
+                break;
+            case '2':
+                if (_DEBUG) printf("%c\n", c);
+                lista = sortowanie_rozmiar_malejaco(lista);
+                break;
+            default:
+                if (_DEBUG) printf("%c\n", c);
+                printf("Niepoprawny wybór\n");
+                break;
+            }
+            break;
+        case '4':
+            if (_DEBUG) printf("Wybrano %c", c);
+            c = getchar();
+            switch(c)
+            {
+            case '1':
+                if (_DEBUG) printf("%c\n", c);
+                lista = sortowanie_kolor_rosnaco(lista);
+                break;
+            case '2':
+                if (_DEBUG) printf("%c\n", c);
+                lista = sortowanie_kolor_malejaco(lista);
+                break;
+            default:
+                if (_DEBUG) printf("%c\n", c);
+                printf("Niepoprawny wybór\n");
+                break;
+            }
+            break;
+        case '5':
+            if (_DEBUG) printf("Wybrano %c", c);
+            c = getchar();
+            switch(c)
+            {
+            case '1':
+                if (_DEBUG) printf("%c\n", c);
                 lista = sortowanie_cena_rosnaco(lista);
                 break;
             case '2':
@@ -171,8 +209,12 @@ void tekst_sortowanie()
            "12 - po nazwie\tmalejąco\n"
            "21 - po ilości\trosnąco\n"
            "22 - po ilości\tmalejąco\n"
-           "31 - po cenie\trosnąco\n"
-           "32 - po cenie\tmalejąco\n"
+           "31 - po rozmiarze\trosnąco\n"
+           "32 - po rozmiarze\tmalejąco\n"
+           "41 - po kolorze\trosnąco\n"
+           "42 - po kolorze\tmalejąco\n"
+           "51 - po cenie\trosnąco\n"
+           "52 - po cenie\tmalejąco\n"
            "0 - powrót\n");
 }
 

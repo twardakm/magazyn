@@ -117,6 +117,10 @@ element *odczytaj_plik(element *first, char *nazwa_pliku)
         fgetc(plik);
         fgets(temp->twr->kolor, MAX_COLOR_LENGHT + 1, plik); //+1 bo /n
         strtok(temp->twr->kolor, "\n");
+        //pierwsza litera musi być duża
+        if (islower(temp->twr->kolor[0]))
+            temp->twr->kolor[0] = toupper(temp->twr->kolor[0]);
+        //---------
         fscanf(plik, "%lf", &temp->twr->cena);
         while ((c = fgetc(plik)) != '}' && c != EOF) {} // żeby przeskoczyć znak '}'
         while ((c = fgetc(plik)) != '\n' && c != EOF) {}
