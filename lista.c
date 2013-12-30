@@ -12,6 +12,20 @@ element * clear(element *first)
 
     if (_DEBUG) printf("Zwolniono pamięć %s\n", first->twr->nazwa);
 
+    if (first->twr->nazwa_pliku != NULL)
+    {
+        element * temp = first;
+        char * c = first->twr->nazwa_pliku;
+        free (first->twr->nazwa_pliku);
+        while (temp != NULL)
+        {
+            temp = temp->prev;
+            if (temp != NULL && temp->twr->nazwa_pliku == c)
+                temp->twr->nazwa_pliku = NULL;
+        }
+    }
+
+
     free(first->twr->nazwa);
     free(first->twr->kolor);
     free(first->twr);
