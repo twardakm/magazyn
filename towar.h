@@ -26,7 +26,7 @@ element * sortowanie_nazwa_malejaco(element *first);
 element * sortowanie_nazwa_rosnaco(element *first);
 element * sprzedanie_towaru(element *first);
 void tekst_przyjeto_towar();
-void wyswietl_towary(element *first, int ktory);
+void wyswietl_towary(element *first, int * ktory, int ile);
 void wyszukiwanie_towaru(element *first);
 
 #endif // TOWAR_H

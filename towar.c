@@ -175,7 +175,7 @@ element * sortowanie_cena_malejaco(element *first)
 
     while (first->prev != NULL) {first = first->prev; } //powrót do początku
 
-    wyswietl_towary(first, -1);
+    wyswietl_towary(first, NULL, 0);
 
     return first;
 }
@@ -209,7 +209,7 @@ element * sortowanie_cena_rosnaco(element *first)
 
     while (first->prev != NULL) {first = first->prev; } //powrót do początku
 
-    wyswietl_towary(first,-1);
+    wyswietl_towary(first,NULL,0);
 
     return first;
 }
@@ -243,7 +243,7 @@ element * sortowanie_ilosc_malejaco(element *first)
 
     while (first->prev != NULL) {first = first->prev; } //powrót do początku
 
-    wyswietl_towary(first,-1);
+    wyswietl_towary(first,NULL,0);
 
     return first;
 }
@@ -277,7 +277,7 @@ element * sortowanie_ilosc_rosnaco(element *first)
 
     while (first->prev != NULL) {first = first->prev; } //powrót do początku
 
-    wyswietl_towary(first,-1);
+    wyswietl_towary(first,NULL,0);
 
     return first;
 }
@@ -312,7 +312,7 @@ element * sortowanie_nazwa_malejaco(element *first)
 
     while (first->prev != NULL) {first = first->prev; } //powrót do początku
 
-    wyswietl_towary(first,-1);
+    wyswietl_towary(first,NULL,0);
 
     return first;
 }
@@ -347,7 +347,7 @@ element * sortowanie_nazwa_rosnaco(element *first)
 
     while (first->prev != NULL) {first = first->prev; } //powrót do początku
 
-    wyswietl_towary(first,-1);
+    wyswietl_towary(first,NULL,0);
 
     return first;
 }
@@ -411,7 +411,7 @@ void tekst_przyjeto_towar()
            "2 - Ilość sztuk już dodanego towaru\n");
 }
 
-void wyswietl_towary(element *first, int ktory)
+void wyswietl_towary(element *first, int * ktory, int ile)
 {
     if (size(first) == 0)
     {
@@ -422,11 +422,10 @@ void wyswietl_towary(element *first, int ktory)
     printf("DODANE TOWARY\n--------------------------------------\n\n");
     printf("Lp\tNazwa towaru\t\tIlość\tCena\n"
            "--------------------------------------\n");
-    if (ktory > 0)
-        first = position(first, ktory);
-
     do
     {
+        if (ktory != NULL)
+            first = position(first, *(ktory+i));
         printf("%d\t", i);
         if (strlen(first->twr->nazwa) < 8)
             printf("%s\t\t\t", first->twr->nazwa);
@@ -438,9 +437,10 @@ void wyswietl_towary(element *first, int ktory)
         printf("%d\t%.2f\n",
                first->twr->ilosc,
                first->twr->cena);
-        first = first->next;
+        if (ktory == NULL)
+            first = first->next;
         i++;
-    } while (first != NULL && ktory < 0);
+    } while (first != NULL && (ktory == NULL || i < ile));
 
     printf("--------------------------------------\n");
     return;
