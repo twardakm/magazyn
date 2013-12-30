@@ -34,6 +34,10 @@ element *menu_sklep(element *lista)
             if (_DEBUG) printf("Wybrano %c\n", c);
             menu_sortowanie(lista);
             break;
+        case '4':
+            if (_DEBUG) printf("Wybrano %c\n", c);
+            wyszukiwanie_towaru(lista);
+            break;
         case '0':
             if(_DEBUG) printf("Wybrano %c\n",c);
             printf("Czy aby na pewno chcesz wyjść? (T, N) ");

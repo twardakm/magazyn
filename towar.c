@@ -175,7 +175,7 @@ element * sortowanie_cena_malejaco(element *first)
 
     while (first->prev != NULL) {first = first->prev; } //powrót do początku
 
-    wyswietl_towary(first);
+    wyswietl_towary(first, -1);
 
     return first;
 }
@@ -209,7 +209,7 @@ element * sortowanie_cena_rosnaco(element *first)
 
     while (first->prev != NULL) {first = first->prev; } //powrót do początku
 
-    wyswietl_towary(first);
+    wyswietl_towary(first,-1);
 
     return first;
 }
@@ -243,7 +243,7 @@ element * sortowanie_ilosc_malejaco(element *first)
 
     while (first->prev != NULL) {first = first->prev; } //powrót do początku
 
-    wyswietl_towary(first);
+    wyswietl_towary(first,-1);
 
     return first;
 }
@@ -277,7 +277,7 @@ element * sortowanie_ilosc_rosnaco(element *first)
 
     while (first->prev != NULL) {first = first->prev; } //powrót do początku
 
-    wyswietl_towary(first);
+    wyswietl_towary(first,-1);
 
     return first;
 }
@@ -312,7 +312,7 @@ element * sortowanie_nazwa_malejaco(element *first)
 
     while (first->prev != NULL) {first = first->prev; } //powrót do początku
 
-    wyswietl_towary(first);
+    wyswietl_towary(first,-1);
 
     return first;
 }
@@ -347,7 +347,7 @@ element * sortowanie_nazwa_rosnaco(element *first)
 
     while (first->prev != NULL) {first = first->prev; } //powrót do początku
 
-    wyswietl_towary(first);
+    wyswietl_towary(first,-1);
 
     return first;
 }
@@ -411,7 +411,7 @@ void tekst_przyjeto_towar()
            "2 - Ilość sztuk już dodanego towaru\n");
 }
 
-void wyswietl_towary(element *first)
+void wyswietl_towary(element *first, int ktory)
 {
     if (size(first) == 0)
     {
@@ -422,7 +422,10 @@ void wyswietl_towary(element *first)
     printf("DODANE TOWARY\n--------------------------------------\n\n");
     printf("Lp\tNazwa towaru\t\tIlość\tCena\n"
            "--------------------------------------\n");
-    while (first != NULL)
+    if (ktory > 0)
+        first = position(first, ktory);
+
+    do
     {
         printf("%d\t", i);
         if (strlen(first->twr->nazwa) < 8)
@@ -437,7 +440,50 @@ void wyswietl_towary(element *first)
                first->twr->cena);
         first = first->next;
         i++;
-    }
+    } while (first != NULL && ktory < 0);
+
     printf("--------------------------------------\n");
+    return;
+}
+
+void wyszukiwanie_towaru(element *first)
+{
+    if (first == NULL)
+    {
+        printf("Nie dodano dotąd żadnego towaru\n");
+        return;
+    }
+
+    int i;
+    char *nazwa = (char *)malloc(sizeof(char) * MAX_TOWAR_LENGHT + 1);
+
+    while(getchar() != '\n');
+    printf("Podaj nazwę bądź jej początek do wyszukania - wielkość liter nie ma znaczenia (pusty wiersz wychodzi): ");
+    fgets(nazwa, MAX_TOWAR_LENGHT + 1, stdin);
+    if(nazwa[0] == '\n')
+    {
+        free(nazwa);
+        return;
+    }
+    strtok(nazwa, "\n");
+    printf("Wyszukiwanie... %s\n", nazwa);
+
+    while (first != NULL)
+    {
+        for (i = 0; i < strlen(first->twr->nazwa); i++)
+        {
+            if(tolower(first->twr->nazwa[i]) == nazwa[i])
+            {
+                if (nazwa[i+1] == '\0')
+                {
+                    //wyświetlenie towaru
+                }
+            }
+        }
+
+        first = first->next;
+    }
+
+    free (nazwa);
     return;
 }
