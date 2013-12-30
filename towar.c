@@ -418,15 +418,16 @@ void wyswietl_towary(element *first, int * ktory, int ile)
         printf("Nie dodano żadnych towarów!\n");
         return;
     }
-    int i = 1;
+    int i = 0;
     printf("DODANE TOWARY\n--------------------------------------\n\n");
     printf("Lp\tNazwa towaru\t\tIlość\tCena\n"
            "--------------------------------------\n");
+    element *lista = first;
     do
     {
         if (ktory != NULL)
-            first = position(first, *(ktory+i));
-        printf("%d\t", i);
+            first = position(lista, ktory[i]);
+        printf("%d\t", i+1);
         if (strlen(first->twr->nazwa) < 8)
             printf("%s\t\t\t", first->twr->nazwa);
         else if (strlen(first->twr->nazwa) < 16)
@@ -453,12 +454,12 @@ void wyszukiwanie_towaru(element *first)
         printf("Nie dodano dotąd żadnego towaru\n");
         return;
     }
-
     int i;
     int j = 0;
     int ile = 0;
     char *nazwa = (char *)malloc(sizeof(char) * MAX_TOWAR_LENGHT + 1);
     int *ktore = (int *)malloc(sizeof(int) * size(first));
+    int *ktore_kopia = ktore;
     element *lista = first;
 
     while(getchar() != '\n');
@@ -481,7 +482,7 @@ void wyszukiwanie_towaru(element *first)
                 if (nazwa[i+1] == '\0')
                 {
                     //to znaczy że pasują do siebie
-                    *(ktore + ile) = j;
+                    ktore[ile] = j;
                     ile++;
                     i = strlen(first->twr->nazwa); //sprawdzić czy break zadziała
                 }
@@ -493,10 +494,17 @@ void wyszukiwanie_towaru(element *first)
         first = first->next;
         j++;
     }
+    if (_DEBUG)
+    {
+        ktore = ktore_kopia;
+        printf("Towary do wyświetlenia:\n");
+        for (i = 0; i < ile; i++)
+            printf("%d\t%s\n", ktore[i], position(lista,ktore[i])->twr->nazwa);
+    }
 
-    wyswietl_towary(lista, ktore, ile);
+    wyswietl_towary(lista, ktore_kopia, ile);
 
-    free (ktore);
+    free (ktore_kopia);
     free (nazwa);
     return;
 }
