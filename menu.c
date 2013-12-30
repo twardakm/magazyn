@@ -269,6 +269,7 @@ element * wiadomosc_powitalna(element *lista)
             break;
         case '9':
             if(_DEBUG) printf("Wybrano %c\n",c);
+            zapisz_plik(lista, NULL);
             break;
         case '0':
             if(_DEBUG) printf("Wybrano %c\n",c);

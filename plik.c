@@ -298,7 +298,7 @@ int zapisz_plik(element *first, char *nazwa_pliku)
     }
 
     FILE *plik;
-    printf("Otwieranie pliku... %s ", nazwa_pliku);
+    printf("Zapisywanie do pliku... %s ", nazwa_pliku);
     //otwarcie podanego pliku w trybie do zapisu
     if((plik = fopen(nazwa_pliku, "w")) == NULL)
     {

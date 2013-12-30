@@ -1,6 +1,6 @@
 project(magazyn)
 cmake_minimum_required(VERSION 2.8)
-set(CMAKE_C_FLAGS "-D_DEBUG=1")
+set(CMAKE_C_FLAGS "-D_DEBUG=0")
 file(GLOB Demo_HEADERS RELATIVE ${CMAKE_SOURCE_DIR}/include "*.h")
 SET(magazyn_SOURCES)
 SET(magazyn_HEADERS lista.h towar.h menu.h plik.h errors.h)
