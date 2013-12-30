@@ -63,6 +63,7 @@ element * dodaj_sztuk_towaru(element *first)
 
 element * dodaj_towar(element *first)
 {
+    int c;
     element *temp = (element *)malloc(sizeof(element));
     temp->next = NULL;
     temp->twr = (towar *)malloc(sizeof(towar));
@@ -97,6 +98,51 @@ element * dodaj_towar(element *first)
 
         return first;
     }
+
+    printf("Wybierz rozmiar: (0 aby wyjść)\n");
+    wyswietl_rozmiary();
+    getchar();
+    c = getchar();
+
+    while (c < 0 && c > 8)
+    {
+        switch (c)
+        {
+        case '1': temp->twr->rozmiar = 1; break;
+        case '2': temp->twr->rozmiar = 2; break;
+        case '3': temp->twr->rozmiar = 3; break;
+        case '4': temp->twr->rozmiar = 4; break;
+        case '5': temp->twr->rozmiar = 5; break;
+        case '6': temp->twr->rozmiar = 6; break;
+        case '7': temp->twr->rozmiar = 7; break;
+        case '8': temp->twr->rozmiar = 8; break;
+        case '0':
+            free (temp->twr->nazwa);
+            free (temp->twr);
+            free (temp);
+
+            return first;
+        default:
+            printf("Wybierz poprawny rozmiar!\n");
+            getchar();
+            c = getchar();
+            break;
+        }
+    }
+    getchar();
+
+    temp->twr->kolor = (char *)malloc(sizeof(char) * MAX_COLOR_LENGHT+1);
+    printf("Podaj kolor towaru: (maks, dł: %d, puste aby wyjść) ", MAX_COLOR_LENGHT);
+    fgets(temp->twr->kolor, MAX_COLOR_LENGHT + 1, stdin);
+    if (temp->twr->kolor[0] == '\n')
+    {
+        free (temp->twr->nazwa);
+        free (temp->twr->kolor);
+        free (temp->twr);
+        free (temp);
+        return first;
+    }
+    strtok(temp->twr->kolor, "\n");
 
     printf("Podaj cenę towaru: (0 aby wyjść) ");
     scanf("%lf", &temp->twr->cena);
@@ -409,6 +455,19 @@ void tekst_przyjeto_towar()
     printf("Chcesz dodać\n"
            "1 - Nowy towar\n"
            "2 - Ilość sztuk już dodanego towaru\n");
+}
+
+void wyswietl_rozmiary()
+{
+    printf("1 - XS\n"
+           "2 - S\n"
+           "3 - M\n"
+           "4 - L\n"
+           "5 - XL\n"
+           "6 - 2XL\n"
+           "7 - 3XL\n"
+           "8 - 4XL\n");
+    return;
 }
 
 void wyswietl_towary(element *first, int * ktory, int ile)
