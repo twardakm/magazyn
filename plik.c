@@ -54,7 +54,7 @@ int czy_zapisac()
         czy_zapisac();
 }
 
-element *odczytaj_plik(element *first, char *nazwa_pliku)
+element *odczytaj_plik(element *first, char *nazwa_pliku, int czy_wszystkie)
 {
     int err = FILENAME_WRONG;
     int i = 0;
@@ -97,6 +97,8 @@ element *odczytaj_plik(element *first, char *nazwa_pliku)
 
     element *temp = NULL;
 
+    element *first2 = NULL;
+
     while ((err = sprawdz_czy_komentarz(plik)) == COMMENT_OK)
     {
         while ((c = fgetc(plik)) != '\n' && c != EOF) {} // żeby przeskoczyć znak '{'
@@ -138,13 +140,60 @@ element *odczytaj_plik(element *first, char *nazwa_pliku)
 
         temp->twr->czy_zmieniany = 0;
 
-        first = push(first, temp);
+        if (czy_wszystkie)
+            first = push(first, temp);
+        else
+            first2 = push(first2, temp);
         i++;
     }
 
-    printf("Wczytano %d towarów", i);
+    if (czy_wszystkie)
+        printf("Wczytano %d towarów", i);
+    else
+    {
+        int d;
+        do
+        {
+            wyswietl_towary(first2, NULL, -1);
+            printf("Które z wymienionych towarów chcesz załadować? Podaj nr oddzielone enterem, 0 kończy dodawanie\n");
+            scanf("%d", &d);
+            if (d > 0 && d <= size(first2))
+            {
+                temp = position(first2, d-1);
+                temp->twr->czy_zmieniany = 1;
+                printf("Dodano %s\n", temp->twr->nazwa);
+
+                //żeby ominęło przy clear
+                //-----------
+                if (temp->next == NULL && temp->prev != NULL)
+                    temp->prev->next = NULL;
+                else if (temp->next != NULL && temp->prev == NULL)
+                {
+                    first2 = temp->next;
+                    first2->prev = NULL;
+                }
+                else if (temp->next == NULL && temp->prev == NULL)
+                {
+                    printf("Nie ma już więcej towarów do dodania w danym pliku\n");
+                    d = 0;
+                }
+                else
+                {
+                    temp->prev->next = temp->next;
+                    temp->next->prev = temp->prev;
+                }
+                //-----------
+                temp->next = NULL;
+                first = push(first, temp);
+
+            }
+            else if (d != 0)
+                printf("Nieprawidłowy nr towaru\n");
+        } while (d != 0);
+    }
 
     fclose(plik);
+    first2 = clear(first2);
     return first;
 }
 

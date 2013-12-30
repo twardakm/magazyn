@@ -3,7 +3,7 @@
 #include "lista.h"
 
 element * menu_sklep(element *lista);
-void menu_sortowanie(element *lista);
+element *menu_sortowanie(element *lista);
 void tekst_powitalny(int ile);
 void tekst_sklep(int ile);
 void tekst_sortowanie();

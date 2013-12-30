@@ -8,7 +8,7 @@
 
 int czy_mtw(char *nazwa_pliku);
 int czy_zapisac();
-element * odczytaj_plik(element *first, char *nazwa_pliku);
+element * odczytaj_plik(element *first, char *nazwa_pliku, int czy_wszystkie); //jeśli czy_wszystkie = 1 odczytuje cały plik
 int sprawdcz_czy_komentarz(FILE *plik);
 int wyswietl_pliki();
 int zapisz_plik(element *first, char *nazwa_pliku);

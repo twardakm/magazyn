@@ -627,6 +627,23 @@ element * usun_towar(element *first, element *temp)
     return first;
 }
 
+element * usuwanie_towaru(element *first)
+{
+    first = menu_sortowanie(first);
+    int d;
+    do
+    {
+        printf("Który towar chcesz usunąć? (0 wychodzi)\n");
+        scanf("%d", &d);
+    } while (d < 0 || d > size(first));
+    if (d == 0)
+        return first;
+
+    first = usun_towar(first, position(first,d-1));
+
+    return first;
+}
+
 void tekst_przyjeto_towar()
 {
     printf("Chcesz dodać\n"

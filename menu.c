@@ -32,7 +32,7 @@ element *menu_sklep(element *lista)
             break;
         case '3':
             if (_DEBUG) printf("Wybrano %c\n", c);
-            menu_sortowanie(lista);
+            lista = menu_sortowanie(lista);
             break;
         case '4':
             if (_DEBUG) printf("Wybrano %c\n", c);
@@ -60,7 +60,7 @@ element *menu_sklep(element *lista)
     return lista;
 }
 
-void menu_sortowanie(element *lista)
+element *menu_sortowanie(element *lista)
 {
     if (lista == NULL)
     {
@@ -68,8 +68,8 @@ void menu_sortowanie(element *lista)
         return;
     }
     tekst_sortowanie();
-    char c = getchar();
-
+    getchar();
+    char c;
     while(c = getchar())
     {
         switch(c)
@@ -82,11 +82,11 @@ void menu_sortowanie(element *lista)
             case '1':
                 if (_DEBUG) printf("%c\n", c);
                 lista = sortowanie_nazwa_rosnaco(lista);
-                break;
+                return lista;
             case '2':
                 if (_DEBUG) printf("%c\n", c);
                 lista = sortowanie_nazwa_malejaco(lista);
-                break;
+                return lista;
             default:
                 if (_DEBUG) printf("%c\n", c);
                 printf("Niepoprawny wybór\n");
@@ -101,11 +101,11 @@ void menu_sortowanie(element *lista)
             case '1':
                 if (_DEBUG) printf("%c\n", c);
                 lista = sortowanie_ilosc_rosnaco(lista);
-                break;
+                return lista;
             case '2':
                 if (_DEBUG) printf("%c\n", c);
                 lista = sortowanie_ilosc_malejaco(lista);
-                break;
+                return lista;
             default:
                 if (_DEBUG) printf("%c\n", c);
                 printf("Niepoprawny wybór\n");
@@ -120,11 +120,11 @@ void menu_sortowanie(element *lista)
             case '1':
                 if (_DEBUG) printf("%c\n", c);
                 lista = sortowanie_rozmiar_rosnaco(lista);
-                break;
+                return lista;
             case '2':
                 if (_DEBUG) printf("%c\n", c);
                 lista = sortowanie_rozmiar_malejaco(lista);
-                break;
+                return lista;
             default:
                 if (_DEBUG) printf("%c\n", c);
                 printf("Niepoprawny wybór\n");
@@ -139,11 +139,11 @@ void menu_sortowanie(element *lista)
             case '1':
                 if (_DEBUG) printf("%c\n", c);
                 lista = sortowanie_kolor_rosnaco(lista);
-                break;
+                return lista;
             case '2':
                 if (_DEBUG) printf("%c\n", c);
                 lista = sortowanie_kolor_malejaco(lista);
-                break;
+                return lista;
             default:
                 if (_DEBUG) printf("%c\n", c);
                 printf("Niepoprawny wybór\n");
@@ -158,11 +158,11 @@ void menu_sortowanie(element *lista)
             case '1':
                 if (_DEBUG) printf("%c\n", c);
                 lista = sortowanie_cena_rosnaco(lista);
-                break;
+                return lista;
             case '2':
                 if (_DEBUG) printf("%c\n", c);
                 lista = sortowanie_cena_malejaco(lista);
-                break;
+                return lista;
             default:
                 if (_DEBUG) printf("%c\n", c);
                 printf("Niepoprawny wybór\n");
@@ -170,7 +170,7 @@ void menu_sortowanie(element *lista)
             }
             break;
         case '0':
-            return;
+            return lista;
         default:
             tekst_sortowanie();
             break;
@@ -184,9 +184,11 @@ void tekst_powitalny(int ile)
     wyswietl_date();
     printf("Towarów w magazynie: %d\n", ile);
     printf("1 - Dodaj towar\n"
-           "2 - Wczytaj plik\n"
-           "3 - Wyświetl dodane towary\n"
-           "4 - Przejdź do menu sklepu\n"
+           "2 - Usuń towar\n"
+           "3 - Wczytaj plik\n"
+           "4 - Wczytaj pojedyncze towary z pliku\n"
+           "5 - Wyświetl dodane towary\n"
+           "6 - Przejdź do menu sklepu\n"
            "0 - Wyjdź\n");
 }
 
@@ -241,13 +243,21 @@ element * wiadomosc_powitalna(element *lista)
             break;
         case '2':
             if(_DEBUG) printf("Wybrano %c\n",c);
-            lista = odczytaj_plik(lista, NULL);
+            lista = usuwanie_towaru(lista);
             break;
         case '3':
             if(_DEBUG) printf("Wybrano %c\n",c);
-            menu_sortowanie(lista);
+            lista = odczytaj_plik(lista, NULL, 1);
             break;
         case '4':
+            if(_DEBUG) printf("Wybrano %c\n",c);
+            lista = odczytaj_plik(lista, NULL, 0);
+            break;
+        case '5':
+            if(_DEBUG) printf("Wybrano %c\n",c);
+            lista = menu_sortowanie(lista);
+            break;
+        case '6':
             if(_DEBUG) printf("Wybrano %c\n",c);
             lista = menu_sklep(lista);
             break;
