@@ -209,7 +209,7 @@ element * sortowanie_cena_malejaco(element *first)
     if (first == NULL)
     {
         printf("Nie dodano żadnych towarów\n");
-        return;
+        return first;
     }
     int czy = 0; //oznaczenie czy zmieniono coś w jednym przebiegu
     towar *temp;
@@ -243,7 +243,7 @@ element * sortowanie_cena_rosnaco(element *first)
     if (first == NULL)
     {
         printf("Nie dodano żadnych towarów\n");
-        return;
+        return first;
     }
     int czy = 0; //oznaczenie czy zmieniono coś w jednym przebiegu
     towar *temp;
@@ -277,7 +277,7 @@ element * sortowanie_ilosc_malejaco(element *first)
     if (first == NULL)
     {
         printf("Nie dodano żadnych towarów\n");
-        return;
+        return first;
     }
     int czy = 0; //oznaczenie czy zmieniono coś w jednym przebiegu
     towar *temp;
@@ -311,7 +311,7 @@ element * sortowanie_ilosc_rosnaco(element *first)
     if (first == NULL)
     {
         printf("Nie dodano żadnych towarów\n");
-        return;
+        return first;
     }
     int czy = 0; //oznaczenie czy zmieniono coś w jednym przebiegu
     towar *temp;
@@ -345,7 +345,7 @@ element * sortowanie_kolor_malejaco(element *first)
     if (first == NULL)
     {
         printf("Nie dodano żadnych towarów\n");
-        return;
+        return first;
     }
     int czy = 0; //oznaczenie czy zmieniono coś w jednym przebiegu
     towar *temp;
@@ -380,7 +380,7 @@ element * sortowanie_kolor_rosnaco(element *first)
     if (first == NULL)
     {
         printf("Nie dodano żadnych towarów\n");
-        return;
+        return first;
     }
     int czy = 0; //oznaczenie czy zmieniono coś w jednym przebiegu
     towar *temp;
@@ -415,7 +415,7 @@ element * sortowanie_nazwa_malejaco(element *first)
     if (first == NULL)
     {
         printf("Nie dodano żadnych towarów\n");
-        return;
+        return first;
     }
     int czy = 0; //oznaczenie czy zmieniono coś w jednym przebiegu
     towar *temp;
@@ -450,7 +450,7 @@ element * sortowanie_nazwa_rosnaco(element *first)
     if (first == NULL)
     {
         printf("Nie dodano żadnych towarów\n");
-        return;
+        return first;
     }
     int czy = 0; //oznaczenie czy zmieniono coś w jednym przebiegu
     towar *temp;
@@ -485,7 +485,7 @@ element * sortowanie_rozmiar_malejaco(element *first)
     if (first == NULL)
     {
         printf("Nie dodano żadnych towarów\n");
-        return;
+        return first;
     }
     int czy = 0; //oznaczenie czy zmieniono coś w jednym przebiegu
     towar *temp;
@@ -519,7 +519,7 @@ element * sortowanie_rozmiar_rosnaco(element *first)
     if (first == NULL)
     {
         printf("Nie dodano żadnych towarów\n");
-        return;
+        return first;
     }
     int czy = 0; //oznaczenie czy zmieniono coś w jednym przebiegu
     towar *temp;
@@ -550,14 +550,15 @@ element * sortowanie_rozmiar_rosnaco(element *first)
 
 element * sprzedanie_towaru(element *first)
 {
-    first = sortowanie_nazwa_rosnaco(first);
     if (first == NULL)
     {
         printf("Nie dodano żadnego towaru\n");
         return first;
     }
+    first = sortowanie_nazwa_rosnaco(first);
     int d, ile;
     element *temp;
+    element *t = first;
     do
     {
         printf("Który towar sprzedano - podaj Lp (0 aby wyjść): ");
@@ -580,18 +581,38 @@ element * sprzedanie_towaru(element *first)
         //usunięcie danego elementu
         printf("Towaru %s już brak na magazynie. Usuwam.\n",temp->twr->nazwa);
 
-        free (temp->twr->nazwa_pliku);
+        char *c = temp->twr->nazwa_pliku;
+        d = 0;
+        while (t != NULL)
+        {
+            if (c == temp->twr->nazwa_pliku)
+                d++;
+            t = t->next;
+        }
+        if (d == 1)
+            free (temp->twr->nazwa_pliku);
+
+        free (temp->twr->kolor);
         free (temp->twr->nazwa);
         free (temp->twr);
 
-        if (temp->next == NULL)
+        if (temp->next == NULL && temp->prev != NULL)
             temp->prev->next = NULL;
-        else
-            temp->prev->next = temp->next;
-        if (temp->prev == NULL)
+        else if (temp->next != NULL && temp->prev == NULL)
+        {
             first = temp->next;
+            first->prev = NULL;
+        }
+        else if (temp->next == NULL && temp->prev == NULL)
+        {
+            free (temp);
+            return NULL;
+        }
         else
+        {
+            temp->prev->next = temp->next;
             temp->next->prev = temp->prev;
+        }
 
         free (temp);
         return first;
