@@ -3,7 +3,8 @@
 #include "lista.h"
 
 #define MAX_TOWAR_LENGHT 30
-#define MAX_COLOR_LENGHT 15
+#define MAX_COLOR_LENGHT 20
+#define MAX_RANDOM 1000
 
 typedef struct towar
 {
@@ -20,6 +21,7 @@ typedef struct towar
 int czy_zmieniono(element * first);
 element * dodaj_sztuk_towaru(element *first);
 element * dodaj_towar(element *first);
+element * losuj(element *first);
 element * przyjeto_towar(element *first);
 element * sortowanie_cena_malejaco(element *first);
 element * sortowanie_cena_rosnaco(element *first);

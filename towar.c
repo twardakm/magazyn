@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
+#include <time.h>
 
 int czy_zmieniono(element *first)
 {
@@ -171,6 +172,89 @@ element * dodaj_towar(element *first)
 
     first = push(first, temp);
 
+    return first;
+}
+
+element * losuj(element *first)
+{
+    int ile, i;
+    element *temp;
+    char **kolory;
+    char **nazwy;
+    do
+    {
+        printf("Ile elementów chcesz wylosować? (Od 1 do %d, 0 wychodzi) ", MAX_RANDOM);
+        scanf("%d", &ile);
+    } while(ile < 0 || ile > MAX_RANDOM);
+    if (ile == 0)
+        return first;
+
+    kolory = (char **)malloc(sizeof(char *) * 16);
+    for (i = 0; i < 16; i++)
+        kolory[i] = (char *)malloc(sizeof(char) * MAX_COLOR_LENGHT + 1);
+
+    nazwy = (char **)malloc(sizeof(char *) * 10);
+    for (i = 0; i < 10; i++)
+        nazwy[i] = (char *)malloc(sizeof(char) * MAX_TOWAR_LENGHT + 1);
+
+    //wgranie kolorów
+    //-----
+    strcpy(kolory[0], "Czarny");
+    strcpy(kolory[1], "Srebrny");
+    strcpy(kolory[2], "Szary");
+    strcpy(kolory[3], "Biały");
+    strcpy(kolory[4], "Bordowy");
+    strcpy(kolory[5], "Czerwony");
+    strcpy(kolory[6], "Fioletowy");
+    strcpy(kolory[7], "Pomarańczowy");
+    strcpy(kolory[8], "Ciemnozielony");
+    strcpy(kolory[9], "Jasnozielony");
+    strcpy(kolory[10], "Zielony");
+    strcpy(kolory[11], "Złoty");
+    strcpy(kolory[12], "Granatowy");
+    strcpy(kolory[13], "Niebieski");
+    strcpy(kolory[14], "Błękitny");
+    strcpy(kolory[15], "Wodny");
+    //-----
+    //wgranie nazw towarów
+    //-----
+    strcpy(nazwy[0], "T-Shirt");
+    strcpy(nazwy[1], "Spodenki sport.");
+    strcpy(nazwy[2], "Kurtka zimowa");
+    strcpy(nazwy[3], "Kurtka letnia");
+    strcpy(nazwy[4], "Skarpety");
+    strcpy(nazwy[5], "Czapka");
+    strcpy(nazwy[6], "Bluza");
+    strcpy(nazwy[7], "Koszula z krótk.");
+    strcpy(nazwy[8], "Koszula");
+    strcpy(nazwy[9], "Podkoszulek");
+    //-----
+
+    for (i = 0; i < ile; i++)
+    {
+        temp = (element *)malloc(sizeof(element));
+        temp->twr = (towar *)malloc(sizeof(towar));
+        temp->twr->nazwa_pliku = NULL;
+        temp->twr->nazwa = (char *)malloc(sizeof(char) * MAX_TOWAR_LENGHT + 1);
+        temp->twr->kolor = (char *)malloc(sizeof(char) * MAX_COLOR_LENGHT + 1);
+        temp->twr->czy_zmieniany = 1;
+
+        strcpy(temp->twr->nazwa, nazwy[(int)(rand()%10)]);
+        temp->twr->ilosc = (int)(rand()%100) + 1;
+        temp->twr->rozmiar = (int)(rand()%8) + 1;
+        strcpy(temp->twr->kolor, kolory[(int)(rand()%16)]);
+        temp->twr->cena = (double)((rand()%10000)/100.);
+
+        first = push(first, temp);
+    }
+
+    for (i = 0; i < 16; i++)
+        free(kolory[i]);
+    free (kolory);
+
+    for (i = 0; i < 10; i++)
+        free(nazwy[i]);
+    free (nazwy);
     return first;
 }
 

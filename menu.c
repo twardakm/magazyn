@@ -189,6 +189,8 @@ void tekst_powitalny(int ile)
            "4 - Wczytaj pojedyncze towary z pliku\n"
            "5 - Wyświetl dodane towary\n"
            "6 - Przejdź do menu sklepu\n"
+           "8 - Wylosuj elementy\n"
+           "9 - Zapisz\n"
            "0 - Wyjdź\n");
 }
 
@@ -260,6 +262,13 @@ element * wiadomosc_powitalna(element *lista)
         case '6':
             if(_DEBUG) printf("Wybrano %c\n",c);
             lista = menu_sklep(lista);
+            break;
+        case '8':
+            if(_DEBUG) printf("Wybrano %c\n",c);
+            lista = losuj(lista);
+            break;
+        case '9':
+            if(_DEBUG) printf("Wybrano %c\n",c);
             break;
         case '0':
             if(_DEBUG) printf("Wybrano %c\n",c);
