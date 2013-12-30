@@ -50,7 +50,7 @@ element *menu_sklep(element *lista)
         }
         if (c == 0)
         {
-            tekst_powitalny(size(lista));
+            tekst_sklep(size(lista));
             while((c = getchar())=='\n');
         }
         else

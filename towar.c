@@ -471,7 +471,7 @@ void wyszukiwanie_towaru(element *first)
         return;
     }
     strtok(nazwa, "\n");
-    printf("Wyszukiwanie... %s\n", nazwa);
+    printf("\nWyszukiwanie... %s\n", nazwa);
 
     while (first != NULL)
     {
