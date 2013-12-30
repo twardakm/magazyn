@@ -30,6 +30,10 @@ element *menu_sklep(element *lista)
             lista = przyjeto_towar(lista);
             c = 0;
             break;
+        case '3':
+            if (_DEBUG) printf("Wybrano %c\n", c);
+            menu_sortowanie(lista);
+            break;
         case '0':
             if(_DEBUG) printf("Wybrano %c\n",c);
             printf("Czy aby na pewno chcesz wyjść? (T, N) ");
