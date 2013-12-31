@@ -750,7 +750,7 @@ void wyswietl_rozmiary()
 
 void wyswietl_towary(element *first, int * ktory, int ile)
 {
-    if (size(first) == 0)
+    if (first == NULL)
     {
         printf("Nie dodano żadnych towarów!\n");
         return;
@@ -760,43 +760,47 @@ void wyswietl_towary(element *first, int * ktory, int ile)
     printf("Lp\tNazwa towaru\t\tIlość\tRozmiar\tKolor\t\tCena\n"
            "----------------------------------------------------------------------\n");
     element *lista = first;
-    do
+    if (ktory != NULL && ile == 0)
+        printf("Nie znaleziono towarów spełniających podane kryteria\n");
+    else
     {
-        if (ktory != NULL)
-            first = position(lista, ktory[i]);
-        printf("%d\t", i+1);
-        if (strlen(first->twr->nazwa) < 8)
-            printf("%s\t\t\t", first->twr->nazwa);
-        else if (strlen(first->twr->nazwa) < 16)
-            printf("%s\t\t", first->twr->nazwa);
-        else
-            printf("%s\t", first->twr->nazwa);
-
-        printf("%d\t", first->twr->ilosc);
-
-        switch(first->twr->rozmiar)
+        do
         {
-        case 1: printf("XS\t"); break;
-        case 2: printf("S\t"); break;
-        case 3: printf("M\t"); break;
-        case 4: printf("L\t"); break;
-        case 5: printf("XL\t"); break;
-        case 6: printf("2XL\t"); break;
-        case 7: printf("3XL\t"); break;
-        case 8: printf("4XL\t"); break;
-        }
+            if (ktory != NULL)
+                first = position(lista, ktory[i]);
+            printf("%d\t", i+1);
+            if (strlen(first->twr->nazwa) < 8)
+                printf("%s\t\t\t", first->twr->nazwa);
+            else if (strlen(first->twr->nazwa) < 16)
+                printf("%s\t\t", first->twr->nazwa);
+            else
+                printf("%s\t", first->twr->nazwa);
 
-        if (strlen(first->twr->kolor) < 8)
-            printf("%s\t\t", first->twr->kolor);
-        else
-            printf("%s\t", first->twr->kolor);
+            printf("%d\t", first->twr->ilosc);
 
-        printf("%.2f\n", first->twr->cena);
-        if (ktory == NULL)
-            first = first->next;
-        i++;
-    } while (first != NULL && (ktory == NULL || i < ile));
+            switch(first->twr->rozmiar)
+            {
+            case 1: printf("XS\t"); break;
+            case 2: printf("S\t"); break;
+            case 3: printf("M\t"); break;
+            case 4: printf("L\t"); break;
+            case 5: printf("XL\t"); break;
+            case 6: printf("2XL\t"); break;
+            case 7: printf("3XL\t"); break;
+            case 8: printf("4XL\t"); break;
+            }
 
+            if (strlen(first->twr->kolor) < 8)
+                printf("%s\t\t", first->twr->kolor);
+            else
+                printf("%s\t", first->twr->kolor);
+
+            printf("%.2f\n", first->twr->cena);
+            if (ktory == NULL)
+                first = first->next;
+            i++;
+        } while (first != NULL && (ktory == NULL || i < ile));
+    }
     printf("----------------------------------------------------------------------\n");
     return;
 }
@@ -819,12 +823,13 @@ void wyszukiwanie_towaru(element *first)
     while(getchar() != '\n');
     printf("Podaj nazwę bądź jej początek do wyszukania - wielkość liter nie ma znaczenia (pusty wiersz wychodzi): ");
     fgets(nazwa, MAX_TOWAR_LENGHT + 1, stdin);
+    strtok(nazwa, "\n");
     if(nazwa[0] == '\n')
     {
         free(nazwa);
+        tekst_sklep(size(first));
         return;
     }
-    strtok(nazwa, "\n");
     printf("\nWyszukiwanie... %s\n", nazwa);
 
     while (first != NULL)
