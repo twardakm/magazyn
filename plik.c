@@ -52,7 +52,7 @@ int czy_zapisac()
     else if (ch == 'N' || ch == 'n')
         return 0;
     else
-        czy_zapisac();
+        return czy_zapisac();
 }
 
 element *odczytaj_plik(element *first, char *nazwa_pliku, int czy_wszystkie)
